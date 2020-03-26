@@ -1,12 +1,11 @@
 package com.xy.util;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
 import android.widget.Toast;
-
-import androidx.appcompat.app.AppCompatActivity;
 
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
@@ -148,7 +147,7 @@ class AsyncDialogThread extends AsyncTask<DialogInfo, Void, DialogInfo> {
     protected void onPostExecute(DialogInfo info) {
         super.onPostExecute(info);
         if (info != null) {
-            if (info.getCommand() == 1 && !((AppCompatActivity) info.getContext()).isFinishing()) {
+            if (info.getCommand() == 1 && !((Activity) info.getContext()).isFinishing()) {
                 AlertDialog.Builder builder = new AlertDialog.Builder(info.getContext());
                 builder.setMessage(info.getMsg()).setTitle(info.getTitle()).setPositiveButton("Over", (dlg, id) -> {
                     Toast.makeText(info.getContext(), "dialog:" + info.getMsg(), Toast.LENGTH_LONG).show();

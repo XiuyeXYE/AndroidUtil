@@ -8,7 +8,7 @@ import androidx.lifecycle.LifecycleObserver;
 import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.OnLifecycleEvent;
 
-import com.xy.util.LogUtil;
+import com.xy.util.UIUtil;
 
 public class MainActivityLifecycle implements LifecycleObserver {
 
@@ -18,7 +18,6 @@ public class MainActivityLifecycle implements LifecycleObserver {
     public void destroy(LifecycleOwner source) {
         Log.d(TAG, "destroy source:" + source);
         if (source instanceof AppCompatActivity) {
-            LogUtil.closeActivityDialog((AppCompatActivity) source);
         }
     }
 
@@ -26,7 +25,7 @@ public class MainActivityLifecycle implements LifecycleObserver {
     public void init(LifecycleOwner source) {
         Log.d(TAG, "create source:" + source);
         if (source instanceof AppCompatActivity) {
-            LogUtil.log((AppCompatActivity) source, "Punch down EAST 731!");
+            UIUtil.log((AppCompatActivity) source, "Punch down EAST 731!");
         }
 
     }

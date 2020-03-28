@@ -4,7 +4,9 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.os.AsyncTask;
-import android.widget.Toast;
+
+import java.util.Iterator;
+import java.util.List;
 
 
 public class UIUtil {
@@ -18,13 +20,12 @@ public class UIUtil {
     }
 
     public static synchronized void setCurrentActivty(Context activity) {
-        if (activity == null) return;
-        currentActivty = activity;
+        currentActivty = activity;//first step
+        AsyncDialogThread.clearPrevActivityRelatedDialog();//second step
     }
 
     public static <T> void log(Context context, T... tList) {
         if (!DEBUG) return;
-        setCurrentActivty(context);
         String output = "";
         for (T t : tList) {
             output += t + " ";
@@ -36,15 +37,8 @@ public class UIUtil {
 
     public static void alert(Context context, String title, String msg) {
         if (context == null) return;
-
-        DialogInfo info = new DialogInfo();
-        info.setContext(context);
-        info.setTitle(title);
-        info.setMsg(msg);
-        info.setCommand(1);
         AsyncDialogThread thread = new AsyncDialogThread();
-        thread.execute(info);
-
+        thread.execute(context, title, msg);
     }
 
 
@@ -57,89 +51,56 @@ public class UIUtil {
     }
 }
 
-class DialogInfo {
-    private Context context;
-    private String title;
-    private String msg;
-    private AlertDialog dialog;
-    private int command;//-1：close ，1 open
 
-    public Context getContext() {
-        return context;
-    }
+class AsyncDialogThread extends AsyncTask<Object, Void, Object> {
 
-    public void setContext(Context context) {
-        this.context = context;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public String getMsg() {
-        return msg;
-    }
-
-    public void setMsg(String msg) {
-        this.msg = msg;
-    }
-
-    public AlertDialog getDialog() {
-        return dialog;
-    }
-
-    public void setDialog(AlertDialog dialog) {
-        this.dialog = dialog;
-    }
-
-    public int getCommand() {
-        return command;
-    }
-
-    public void setCommand(int command) {
-        this.command = command;
-    }
+    public static List<AlertDialog> dialogs = TypeUtil.list();
 
     @Override
-    public String toString() {
-        return "DialogInfo{" +
-                "context=" + context +
-                ", title='" + title + '\'' +
-                ", msg='" + msg + '\'' +
-                ", dialog=" + dialog +
-                ", command=" + command +
-                '}';
-    }
-}
-
-class AsyncDialogThread extends AsyncTask<DialogInfo, Void, DialogInfo> {
-
-
-    @Override
-    protected DialogInfo doInBackground(DialogInfo... dialogInfos) {
+    protected Object doInBackground(Object... dialogInfos) {
         if (dialogInfos.length > 0) {
-            DialogInfo info = dialogInfos[0];
-            return info;
+            return dialogInfos;
         }
         return null;
     }
 
+    public static void clearPrevActivityRelatedDialog() {
+//        Iterator<AlertDialog> it = dialogs.iterator();
+//        while (it.hasNext()) {
+//            AlertDialog ad = it.next();
+//            if (ad.isShowing()) {
+//                ad.dismiss();
+//            }
+//        }
+//        dialogs.clear();
+        Iterator<AlertDialog> it = dialogs.iterator();
+        while (it.hasNext()) {
+            AlertDialog ad = it.next();
+            if (ad.getOwnerActivity() == null || !ad.getOwnerActivity().equals(UIUtil.getCurrentActivty())
+                    || UIUtil.getCurrentActivty() == null
+            ) {
+                ad.dismiss();
+                it.remove();
+            }
+        }
+    }
 
     @Override
-    protected void onPostExecute(DialogInfo info) {
+    protected void onPostExecute(Object info) {
         super.onPostExecute(info);
         if (info != null) {
-            if (info.getCommand() == 1 && !((Activity) info.getContext()).isFinishing()) {
-                AlertDialog.Builder builder = new AlertDialog.Builder(info.getContext());
-                builder.setMessage(info.getMsg()).setTitle(info.getTitle()).setPositiveButton("Over", (dlg, id) -> {
-                    Toast.makeText(info.getContext(), "dialog:" + info.getMsg(), Toast.LENGTH_LONG).show();
+            Object[] infos = (Object[]) info;
+            Activity currentActivity = (Activity) infos[0];
+            if (!currentActivity.isFinishing()) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(currentActivity);
+                builder.setMessage(infos[2].toString()).setTitle(infos[1].toString());
+                AlertDialog dialog = builder.create();
+                dialog.show();
+                dialogs.add(dialog);
+                dialog.setOnShowListener(v -> {
+                    clearPrevActivityRelatedDialog();
                 });
-                info.setDialog(builder.create());
-                info.getDialog().show();
+
 
             }
 

@@ -1,10 +1,14 @@
 package com.xy.util;
 
+import android.Manifest;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
+import android.content.pm.PackageManager;
 import android.os.AsyncTask;
+import android.telephony.TelephonyManager;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
@@ -32,7 +36,7 @@ public class UIUtil {
         }
         int idx = 0;
         output = output.substring(0, (idx = output.length() - 1) > 0 ? idx : 0);
-        alert(context, "LOG:", output);
+        alert(context, context.getClass().toString(), output);
     }
 
     public static void alert(Context context, String title, String msg) {
@@ -49,12 +53,32 @@ public class UIUtil {
     public static void log(String... s) {
         log(getCurrentActivty(), s);
     }
+
+    public static String getDeviceID(Activity activity) {
+        TelephonyManager mTelephonyMgr = (TelephonyManager) activity.getSystemService(Context.TELEPHONY_SERVICE);
+        int checkResult = activity.checkCallingOrSelfPermission(Manifest.permission.READ_PHONE_STATE);
+        if (checkResult == PackageManager.PERMISSION_GRANTED) {
+            String imsi = mTelephonyMgr.getSubscriberId(); //获取IMSI号
+            String imei = mTelephonyMgr.getDeviceId(); //获取IMEI号
+            return imsi + imei;
+        }
+        return null;
+    }
+
+//    public static boolean requestDevicePermission(Activity activity, String[] permissions, int requestCode) {
+//
+//        activity.requestPermissions(permissions,requestCode);
+//        return true;
+//    }
+
+
+
 }
 
 
 class AsyncDialogThread extends AsyncTask<Object, Void, Object> {
 
-    public static List<AlertDialog> dialogs = TypeUtil.list();
+    public static List<AlertDialog> dialogs = new ArrayList<>();
 
     @Override
     protected Object doInBackground(Object... dialogInfos) {

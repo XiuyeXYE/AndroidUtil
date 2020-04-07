@@ -104,7 +104,7 @@ public class MainActivity extends AppCompatActivity {
                         .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
                         .subscribe(d -> {
-                            XLog.log(d);
+                            XLog.log(d, Thread.currentThread());
                             UIUtil.log(d.toString());
                             this.finish();
                         });

@@ -32,6 +32,7 @@ public class PieChart extends View {
         mShowText = a.getBoolean(R.styleable.PieChart_showText, false);
         textPos = a.getInteger(R.styleable.PieChart_labelPosition, 0);
         textHeight = a.getInteger(R.styleable.PieChart_textHeight, 10);
+
         a.recycle();
 
         this.init();
@@ -112,10 +113,10 @@ public class PieChart extends View {
         UIUtil.log("canvas size:", canvas.getWidth() + "", canvas.getHeight() + "");
         RectF shadowBounds = new RectF(0, 0, 10, 10);
         // Draw the shadow
-        canvas.drawOval(
-                shadowBounds,
-                shadowPaint
-        );
+//        canvas.drawOval(
+//                shadowBounds,
+//                shadowPaint
+//        );
 
         // Draw the label text
         canvas.drawText("ABC PIE CHART", 20, 200, textPaint);

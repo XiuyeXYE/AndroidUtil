@@ -13,11 +13,16 @@ public class SplashActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
-        findViewById(R.id.toSplashActivity).setOnClickListener(v -> {
+        findViewById(R.id.toMainActivityBtn).setOnClickListener(v -> {
             startActivity(new Intent(this, MainActivity.class));
         });
         findViewById(R.id.toCustomViewActivityBtn).setOnClickListener(v -> {
             startActivity(XType.newInstance(Intent::new, this, CustomViewActivity.class));
         });
+        findViewById(R.id.toSystemInfoBtn).setOnClickListener(v -> {
+            startActivity(XType.newInstance(Intent::new, this, SystemInfoActivity.class));
+        });
+
+
     }
 }

@@ -30,6 +30,10 @@ public class SplashActivity extends AppCompatActivity {
             startActivity(XType.newInstance(Intent::new, this, ComponentsActivity.class));
         });
 
+        findViewById(R.id.toPercentLayoutActivityBtn).setOnClickListener(v -> {
+            startActivity(XType.newInstance(Intent::new, this, PercentLayoutActivity.class));
+        });
+
     }
 
     @Override

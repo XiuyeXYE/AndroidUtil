@@ -13,7 +13,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ComponentsActivity"></activity>
+        <activity android:name=".PercentLayoutActivity"></activity>
+        <activity android:name=".ComponentsActivity" />
         <activity
             android:name=".SystemInfoActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"

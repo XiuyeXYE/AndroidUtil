@@ -50,7 +50,7 @@ public class UIUtil {
         log(getCurrentActivty(), getCurrentActivty());
     }
 
-    public static void log(String... s) {
+    public static <T> void log(T... s) {
         log(getCurrentActivty(), s);
     }
 

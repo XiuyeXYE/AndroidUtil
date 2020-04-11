@@ -61,6 +61,8 @@ dependencies {
     implementation 'com.squareup.retrofit2:converter-java8:2.8.1'
     implementation 'com.google.code.gson:gson:2.8.6'
     implementation 'com.squareup.okhttp3:logging-interceptor:4.4.1'
+    implementation 'androidx.percentlayout:percentlayout:1.0.0'
+
 
 //    implementation 'androidx.lifecycle:common-java8:2.2.0'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'

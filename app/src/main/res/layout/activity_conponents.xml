@@ -35,5 +35,19 @@
 
         />
 
+    <Button
+        android:id="@+id/alertDialogBtn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAllCaps="false"
+        android:text="AlertDialog" />
+
+    <Button
+        android:id="@+id/progressDialogBtn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAllCaps="false"
+        android:text="ProgressDialog" />
+
 
 </LinearLayout>

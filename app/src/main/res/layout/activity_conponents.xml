@@ -6,6 +6,20 @@
     android:orientation="vertical"
     tools:context=".ComponentsActivity">
 
+
+    <com.xy.view.layout.TitleLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+    <!--<LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        >
+
+        <include layout="@layout/title"/>
+
+    </LinearLayout>-->
+
     <TextView
         android:id="@+id/textViewDemo"
         android:layout_width="match_parent"

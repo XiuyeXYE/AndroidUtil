@@ -25,7 +25,7 @@ public class UIUtil {
 
     public static synchronized void setCurrentActivty(Context activity) {
         currentActivty = activity;//first step
-        AsyncDialogThread.clearPrevActivityRelatedDialog();//second step
+//        AsyncDialogThread.clearPrevActivityRelatedDialog();//second step
     }
 
     public static <T> void log(Context context, T... tList) {
@@ -87,24 +87,14 @@ class AsyncDialogThread extends AsyncTask<Object, Void, Object> {
     }
 
     public static void clearPrevActivityRelatedDialog() {
-//        Iterator<AlertDialog> it = dialogs.iterator();
-//        while (it.hasNext()) {
-//            AlertDialog ad = it.next();
-//            if (ad.isShowing()) {
-//                ad.dismiss();
-//            }
-//        }
-//        dialogs.clear();
+//        XLog.lg("before remove all dialogs",dialogs.size(),dialogs);
         Iterator<AlertDialog> it = dialogs.iterator();
         while (it.hasNext()) {
             AlertDialog ad = it.next();
-            if (ad.getOwnerActivity() == null || !ad.getOwnerActivity().equals(UIUtil.getCurrentActivty())
-                    || UIUtil.getCurrentActivty() == null
-            ) {
-                ad.dismiss();
-                it.remove();
-            }
+            ad.dismiss();
+            it.remove();
         }
+//        XLog.lg("after remove all dialogs",dialogs.size(),dialogs);
     }
 
     @Override
@@ -119,8 +109,10 @@ class AsyncDialogThread extends AsyncTask<Object, Void, Object> {
                 AlertDialog dialog = builder.create();
                 dialog.show();
                 dialogs.add(dialog);
-                dialog.setOnShowListener(v -> {
-                    clearPrevActivityRelatedDialog();
+//                XLog.lg("dialogs:",dialogs);
+                dialog.setOnDismissListener(v -> {
+                    dialogs.remove(dialog);
+//                    XLog.lg("remove dialog by itself");
                 });
 
 

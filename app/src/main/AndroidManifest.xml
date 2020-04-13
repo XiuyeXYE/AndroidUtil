@@ -13,7 +13,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".PercentLayoutActivity"></activity>
+        <activity android:name=".ListViewActivity"></activity>
+        <activity android:name=".PercentLayoutActivity" />
         <activity android:name=".ComponentsActivity" />
         <activity
             android:name=".SystemInfoActivity"

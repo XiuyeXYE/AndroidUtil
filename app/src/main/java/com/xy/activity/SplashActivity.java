@@ -34,6 +34,10 @@ public class SplashActivity extends AppCompatActivity {
             startActivity(XType.newInstance(Intent::new, this, PercentLayoutActivity.class));
         });
 
+        findViewById(R.id.toFruitListViewBtn).setOnClickListener(v -> {
+            startActivity(XType.newInstance(Intent::new, this, ListViewActivity.class));
+        });
+
     }
 
     @Override

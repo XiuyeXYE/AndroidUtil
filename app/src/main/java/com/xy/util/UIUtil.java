@@ -103,7 +103,7 @@ public class UIUtil {
 
     public static Disposable handleRetrofitResult(Observable<Map<String, Object>> result,
                                                   Consumer<Map<String, Object>> consumer) {
-        result
+        return result
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(d -> {

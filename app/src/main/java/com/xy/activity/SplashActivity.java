@@ -14,6 +14,11 @@ import com.xy.util.UIUtil;
 public class SplashActivity extends AppCompatActivity {
 
     @Override
+    public Object getSystemService(@NonNull String name) {
+        return super.getSystemService(name);
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);

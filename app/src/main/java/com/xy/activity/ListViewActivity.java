@@ -8,6 +8,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.xiuye.util.cls.XType;
 import com.xy.model.Fruit;
 import com.xy.model.FruitAdapter;
+import com.xy.util.UIUtil;
 
 import java.util.List;
 
@@ -36,5 +37,8 @@ public class ListViewActivity extends AppCompatActivity {
         initFruits();
         ListView lv = findViewById(R.id.fruitListView);
         lv.setAdapter(new FruitAdapter(this, R.layout.fruit_item, fruitList));
+        lv.setOnItemClickListener((parent, view, position, id) -> {
+            UIUtil.log(parent, view, position, id);
+        });
     }
 }

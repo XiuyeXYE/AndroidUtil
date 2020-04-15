@@ -2,6 +2,7 @@ package com.xy.activity;
 
 import android.content.BroadcastReceiver;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -19,10 +20,10 @@ public class BroadcastActivity extends AppCompatActivity {
         //广播接收器两种注册方式
         //1.AndroidManifest.xml 中声名
         //2.直接用以下代码注册
-//        IntentFilter intentFilter = new IntentFilter();
-//        intentFilter.addAction("test.nothingfor");
-//        intentFilter.addCategory("test.nothingfor");
-//        registerReceiver(br,intentFilter);
+        IntentFilter intentFilter = new IntentFilter();
+        intentFilter.addAction("test.nothingfor");
+        intentFilter.addCategory("test.nothingfor");
+        registerReceiver(br, intentFilter);
         //注意：要注册本地广播，请调用 LocalBroadcastManager
         // .registerReceiver(BroadcastReceiver, IntentFilter)。
         findViewById(R.id.sendBroadcastBtn).setOnClickListener(v -> {

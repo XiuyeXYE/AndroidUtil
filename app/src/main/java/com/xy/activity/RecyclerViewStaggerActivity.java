@@ -9,8 +9,8 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
 import com.xiuye.util.cls.XType;
 import com.xy.model.Fruit;
@@ -18,7 +18,7 @@ import com.xy.util.UIUtil;
 
 import java.util.List;
 
-public class RecyclerViewHorizontalActivity extends AppCompatActivity {
+public class RecyclerViewStaggerActivity extends AppCompatActivity {
 
 
     private List<Fruit> initFruits() {
@@ -43,12 +43,11 @@ public class RecyclerViewHorizontalActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_recycler_view_horizontal);
+        setContentView(R.layout.activity_recycler_view_stagger);
 
 
-        RecyclerView rv = findViewById(R.id.recyclerViewHorizontal);
-        LinearLayoutManager manger = new LinearLayoutManager(this);
-        manger.setOrientation(LinearLayoutManager.HORIZONTAL);
+        RecyclerView rv = findViewById(R.id.recyclerViewStagger);
+        StaggeredGridLayoutManager manger = new StaggeredGridLayoutManager(3, StaggeredGridLayoutManager.VERTICAL);
         rv.setLayoutManager(manger);
         rv.setAdapter(new FruitAdpater(initFruits()));
 
@@ -58,7 +57,7 @@ public class RecyclerViewHorizontalActivity extends AppCompatActivity {
         @NonNull
         @Override
         public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-            View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.fruit_item_vertical, parent, false);
+            View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.fruit_item_stagger, parent, false);
             ViewHolder holder = new ViewHolder(view);
             view.setOnClickListener(v -> {
                 UIUtil.log("the whole view clicked:", parent, viewType, v);
@@ -85,8 +84,8 @@ public class RecyclerViewHorizontalActivity extends AppCompatActivity {
 
             public ViewHolder(View view) {
                 super(view);
-                fruitImage = view.findViewById(R.id.fruit_image_vertical);
-                fruitName = view.findViewById(R.id.fruit_name_vertical);
+                fruitImage = view.findViewById(R.id.fruit_image_stagger);
+                fruitName = view.findViewById(R.id.fruit_name_stagger);
             }
         }
 

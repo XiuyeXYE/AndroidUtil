@@ -96,6 +96,14 @@
                 android:textAllCaps="false"
                 android:text="toRecyclerViewHorizontalActivity" />
 
+            <Button
+                android:id="@+id/toRecyclerViewStaggerActivityBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                android:textAllCaps="false"
+                android:text="toRecyclerViewStaggerActivity" />
+
         </LinearLayout>
     </ScrollView>
 

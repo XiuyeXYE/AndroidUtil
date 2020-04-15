@@ -65,6 +65,10 @@ public class SplashActivity extends AppCompatActivity {
         findViewById(R.id.toRecyclerViewHorizontalActivityBtn).setOnClickListener(v -> {
             startActivity(XType.newInstance(Intent::new, this, RecyclerViewHorizontalActivity.class));
         });
+        findViewById(R.id.toRecyclerViewStaggerActivityBtn).setOnClickListener(v -> {
+            startActivity(XType.newInstance(Intent::new, this, RecyclerViewStaggerActivity.class));
+        });
+
 
     }
 

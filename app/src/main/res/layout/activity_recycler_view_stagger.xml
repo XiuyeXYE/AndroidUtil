@@ -3,10 +3,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".RecyclerViewHorizontalActivity">
+    tools:context=".RecyclerViewStaggerActivity">
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerViewHorizontal"
+        android:id="@+id/recyclerViewStagger"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 

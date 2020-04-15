@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.xiuye.util.cls.XType;
 import com.xy.model.Fruit;
+import com.xy.util.UIUtil;
 
 import java.util.List;
 
@@ -58,6 +59,12 @@ public class RecyclerViewActivity extends AppCompatActivity {
         public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
             View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.fruit_item, parent, false);
             ViewHolder holder = new ViewHolder(view);
+            view.setOnClickListener(v -> {
+                UIUtil.log("the whole view clicked:", parent, viewType, v);
+            });
+//            holder.fruitImage.setOnClickListener(v->{
+//                UIUtil.log("image clicked:",v);
+//            });
             return holder;
 
         }

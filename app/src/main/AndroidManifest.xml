@@ -17,6 +17,9 @@
             android:name=".RecyclerViewActivity"
             android:label="RecyclerViewActivity"></activity>
         <activity
+            android:name=".RecyclerViewStaggerActivity"
+            android:label="RecyclerViewStaggerActivity"></activity>
+        <activity
             android:name=".ListViewActivity"
             android:label="ListViewActivity" />
         <activity

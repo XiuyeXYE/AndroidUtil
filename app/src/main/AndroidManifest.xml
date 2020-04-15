@@ -13,12 +13,29 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".BindServiceActivity"></activity>
+
+        <service
+            android:name="com.xy.service.LocalService"
+            android:enabled="true"
+            android:exported="true" />
+        <service
+            android:name="com.xy.service.HelloIntentService"
+            android:exported="false" />
+
+        <activity
+            android:name=".BubbleActivity"
+            android:allowEmbedded="true"
+            android:documentLaunchMode="always"
+            android:label="BubbleActivity"
+            android:resizeableActivity="true"
+            android:theme="@style/Theme.AppCompat.NoActionBar" />
         <activity
             android:name=".RecyclerViewActivity"
-            android:label="RecyclerViewActivity"></activity>
+            android:label="RecyclerViewActivity" />
         <activity
             android:name=".RecyclerViewStaggerActivity"
-            android:label="RecyclerViewStaggerActivity"></activity>
+            android:label="RecyclerViewStaggerActivity" />
         <activity
             android:name=".ListViewActivity"
             android:label="ListViewActivity" />

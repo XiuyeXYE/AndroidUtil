@@ -1,6 +1,7 @@
 package com.xy.activity;
 
 import android.app.Notification;
+import android.app.PendingIntent;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
@@ -12,6 +13,7 @@ import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 
 import com.xiuye.util.cls.XType;
+import com.xy.service.HelloIntentService;
 import com.xy.util.UIUtil;
 
 public class SplashActivity extends AppCompatActivity {
@@ -69,6 +71,47 @@ public class SplashActivity extends AppCompatActivity {
             startActivity(XType.newInstance(Intent::new, this, RecyclerViewStaggerActivity.class));
         });
 
+        findViewById(R.id.toBubbleActivityBtn).setOnClickListener(v -> {
+            // Create bubble intent
+            Intent target = new Intent(this, BubbleActivity.class);
+            PendingIntent bubbleIntent =
+                    PendingIntent.getActivity(this, 0, target, 0 /* flags */);
+
+//            // Create bubble metadata
+//            Notification.BubbleMetadata bubbleData =
+//                    new Notification.BubbleMetadata.Builder()
+//                            .setDesiredHeight(600)
+//                            .setIcon(Icon.createWithResource(this, R.drawable.grape))
+//                            .setIntent(bubbleIntent)
+//                            .build();
+
+            // Create notification
+//            Person chatBot = new Person.Builder()
+//                    .setBot(true)
+//                    .setName("BubbleBot")
+//                    .setImportant(true)
+//                    .build();
+
+            NotificationCompat.Builder builder =
+                    new NotificationCompat.Builder(this, "game")
+                            .setContentIntent(bubbleIntent)
+                            .setSmallIcon(R.drawable.greenapple)
+//                            .setBubbleMetadata()
+                            .addPerson("What?");
+            NotificationManagerCompat managerCompat = NotificationManagerCompat.from(this);
+            managerCompat.notify(456, builder.build());
+        });
+
+        findViewById(R.id.startDemoServiceBtn).setOnClickListener(v -> {
+
+            startService(XType.newInstance(Intent::new, this, HelloIntentService.class));
+
+        });
+        findViewById(R.id.toBindServiceActivityBtn).setOnClickListener(v -> {
+
+            startActivity(XType.newInstance(Intent::new, this, BindServiceActivity.class));
+
+        });
 
     }
 

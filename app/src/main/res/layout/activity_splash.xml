@@ -24,7 +24,7 @@
 
             <Button
                 android:id="@+id/toMainActivityBtn"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
                 android:text="toMainActivity"
@@ -32,7 +32,7 @@
 
             <Button
                 android:id="@+id/toCustomViewActivityBtn"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
 
                 android:text="toCustomViewActivity"
@@ -40,7 +40,7 @@
 
             <Button
                 android:id="@+id/toSystemInfoBtn"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
 
                 android:text="toSystemInfo"
@@ -48,7 +48,7 @@
 
             <Button
                 android:id="@+id/toComponentsActivityBtn"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
 
                 android:text="toComponentsActivity"
@@ -56,7 +56,7 @@
 
             <Button
                 android:id="@+id/toPercentLayoutActivityBtn"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
 
                 android:text="toPercentLayoutActivity"
@@ -64,7 +64,7 @@
 
             <Button
                 android:id="@+id/notificationBtn"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
 
                 android:text="notification"
@@ -72,7 +72,7 @@
 
             <Button
                 android:id="@+id/toFruitListViewActivityBtn"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
 
                 android:text="toFruitListViewActivity"
@@ -82,7 +82,7 @@
 
             <Button
                 android:id="@+id/toRecyclerViewActivityBtn"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
 
                 android:textAllCaps="false"
@@ -90,7 +90,7 @@
 
             <Button
                 android:id="@+id/toRecyclerViewHorizontalActivityBtn"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
 
                 android:textAllCaps="false"
@@ -98,11 +98,32 @@
 
             <Button
                 android:id="@+id/toRecyclerViewStaggerActivityBtn"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
 
                 android:textAllCaps="false"
                 android:text="toRecyclerViewStaggerActivity" />
+
+            <Button
+                android:id="@+id/toBubbleActivityBtn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textAllCaps="false"
+                android:text="toBubbleActivity" />
+
+            <Button
+                android:id="@+id/startDemoServiceBtn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textAllCaps="false"
+                android:text="startDemoService" />
+
+            <Button
+                android:id="@+id/toBindServiceActivityBtn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textAllCaps="false"
+                android:text="toBindServiceActivity" />
 
         </LinearLayout>
     </ScrollView>

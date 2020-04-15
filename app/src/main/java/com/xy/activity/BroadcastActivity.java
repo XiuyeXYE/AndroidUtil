@@ -9,6 +9,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.xiuye.util.cls.XType;
 import com.xy.broadcast.HelloBroadcastReceiver;
+import com.xy.util.UIUtil;
 
 public class BroadcastActivity extends AppCompatActivity {
 
@@ -31,6 +32,7 @@ public class BroadcastActivity extends AppCompatActivity {
             intent.setAction("test.nothingfor");
             intent.addCategory("test.nothingfor");
             this.sendBroadcast(intent);
+            UIUtil.log("already send broadcast!");
         });
 
     }

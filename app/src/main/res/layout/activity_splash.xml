@@ -63,6 +63,14 @@
                 android:textAllCaps="false" />
 
             <Button
+                android:id="@+id/notificationBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                android:text="notification"
+                android:textAllCaps="false" />
+
+            <Button
                 android:id="@+id/toFruitListViewActivityBtn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -73,20 +81,20 @@
                 app:layout_constraintTop_toBottomOf="@+id/toPercentLayoutActivityBtn" />
 
             <Button
-                android:id="@+id/notificationBtn"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-
-                android:text="notification"
-                android:textAllCaps="false" />
-
-            <Button
                 android:id="@+id/toRecyclerViewActivityBtn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
 
                 android:textAllCaps="false"
                 android:text="toRecyclerViewActivity" />
+
+            <Button
+                android:id="@+id/toRecyclerViewHorizontalActivityBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                android:textAllCaps="false"
+                android:text="toRecyclerViewHorizontalActivity" />
 
         </LinearLayout>
     </ScrollView>

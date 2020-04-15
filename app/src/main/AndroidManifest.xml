@@ -13,10 +13,18 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".RecyclerViewActivity"></activity>
-        <activity android:name=".ListViewActivity" />
-        <activity android:name=".PercentLayoutActivity" />
-        <activity android:name=".ComponentsActivity" />
+        <activity
+            android:name=".RecyclerViewActivity"
+            android:label="RecyclerViewActivity"></activity>
+        <activity
+            android:name=".ListViewActivity"
+            android:label="ListViewActivity" />
+        <activity
+            android:name=".PercentLayoutActivity"
+            android:label="PercentLayoutActivity" />
+        <activity
+            android:name=".ComponentsActivity"
+            android:label="ComponentsActivity" />
         <activity
             android:name=".SystemInfoActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
@@ -48,6 +56,9 @@
         <activity
             android:name=".Demo1Activity"
             android:label="Demo1Activity" />
+        <activity
+            android:name=".RecyclerViewHorizontalActivity"
+            android:label="RecyclerViewHorizontalActivity" />
     </application>
 
 </manifest>

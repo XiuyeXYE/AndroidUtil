@@ -8,77 +8,88 @@
 
     >
 
-    <Button
-        android:id="@+id/toMainActivityBtn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:text="toMainActivity"
-        android:textAllCaps="false"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.141"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
 
-    <Button
-        android:id="@+id/toCustomViewActivityBtn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:text="toCustomViewActivity"
-        android:textAllCaps="false"
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.06"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/toMainActivityBtn" />
+        app:layout_constraintTop_toTopOf="parent">
 
-    <Button
-        android:id="@+id/toSystemInfoBtn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:text="toSystemInfo"
-        android:textAllCaps="false"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.138"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/toCustomViewActivityBtn" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
-    <Button
-        android:id="@+id/toComponentsActivityBtn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:text="toComponentsActivity"
-        android:textAllCaps="false"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.064"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/toSystemInfoBtn" />
+            <Button
+                android:id="@+id/toMainActivityBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="toMainActivity"
+                android:textAllCaps="false" />
 
-    <Button
-        android:id="@+id/toPercentLayoutActivityBtn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:text="toPercentLayoutActivity"
-        android:textAllCaps="false"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.063"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/toComponentsActivityBtn" />
+            <Button
+                android:id="@+id/toCustomViewActivityBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
 
-    <Button
-        android:id="@+id/toFruitListViewBtn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:text="toFruitListView"
-        android:textAllCaps="false"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.13"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/toPercentLayoutActivityBtn" />
+                android:text="toCustomViewActivity"
+                android:textAllCaps="false" />
+
+            <Button
+                android:id="@+id/toSystemInfoBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                android:text="toSystemInfo"
+                android:textAllCaps="false" />
+
+            <Button
+                android:id="@+id/toComponentsActivityBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                android:text="toComponentsActivity"
+                android:textAllCaps="false" />
+
+            <Button
+                android:id="@+id/toPercentLayoutActivityBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                android:text="toPercentLayoutActivity"
+                android:textAllCaps="false" />
+
+            <Button
+                android:id="@+id/toFruitListViewActivityBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                android:text="toFruitListViewActivity"
+                android:textAllCaps="false"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/toPercentLayoutActivityBtn" />
+
+            <Button
+                android:id="@+id/notificationBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                android:text="notification"
+                android:textAllCaps="false" />
+
+            <Button
+                android:id="@+id/toRecyclerViewActivityBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                android:textAllCaps="false"
+                android:text="toRecyclerViewActivity" />
+
+        </LinearLayout>
+    </ScrollView>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -18,16 +18,18 @@ public class ListViewActivity extends AppCompatActivity {
 
     private void initFruits() {
         fruitList = XType.list();
-        fruitList.add(new Fruit("Lemon 酸爽青柠檬", R.drawable.lemon));
-        fruitList.add(new Fruit("Mango 热带果王芒果", R.drawable.mango));
-        fruitList.add(new Fruit("Kiwi 进口水果猕猴桃", R.drawable.kiwi));
-        fruitList.add(new Fruit("Cherry 美味可口的樱桃", R.drawable.cherry));
-        fruitList.add(new Fruit("Strawberry 美味可口的草莓", R.drawable.strawberry));
-        fruitList.add(new Fruit("Durian 美味的榴莲", R.drawable.durian));
-        fruitList.add(new Fruit("Grape 进口葡提", R.drawable.grape));
-        fruitList.add(new Fruit("Pitaya 进口火龙果", R.drawable.pitaya));
-        fruitList.add(new Fruit("Blueberry 蓝宝石蓝莓", R.drawable.blueberry));
-        fruitList.add(new Fruit("Banana 热带水果香蕉", R.drawable.banana));
+        for (int i = 0; i < 30; i++) {
+            fruitList.add(new Fruit("Lemon 酸爽青柠檬", R.drawable.lemon));
+            fruitList.add(new Fruit("Mango 热带果王芒果", R.drawable.mango));
+            fruitList.add(new Fruit("Kiwi 进口水果猕猴桃", R.drawable.kiwi));
+            fruitList.add(new Fruit("Cherry 美味可口的樱桃", R.drawable.cherry));
+            fruitList.add(new Fruit("Strawberry 美味可口的草莓", R.drawable.strawberry));
+            fruitList.add(new Fruit("Durian 美味的榴莲", R.drawable.durian));
+            fruitList.add(new Fruit("Grape 进口葡提", R.drawable.grape));
+            fruitList.add(new Fruit("Pitaya 进口火龙果", R.drawable.pitaya));
+            fruitList.add(new Fruit("Blueberry 蓝宝石蓝莓", R.drawable.blueberry));
+            fruitList.add(new Fruit("Banana 热带水果香蕉", R.drawable.banana));
+        }
     }
 
     @Override

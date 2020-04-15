@@ -61,7 +61,7 @@ public class RecyclerViewHorizontalActivity extends AppCompatActivity {
             View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.fruit_item_vertical, parent, false);
             ViewHolder holder = new ViewHolder(view);
             view.setOnClickListener(v -> {
-                UIUtil.log("the whole view clicked:", parent, viewType, v);
+                UIUtil.log("the whole view clicked:", holder.getAdapterPosition(), parent, viewType, v);
             });
             return holder;
 

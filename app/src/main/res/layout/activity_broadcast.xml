@@ -4,13 +4,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".BindServiceActivity">
+    tools:context=".BroadcastActivity">
 
     <Button
+        android:id="@+id/sendBroadcastBtn"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="getServiceMessage"
-        android:onClick="serviceClicked"
+        android:text="sendBroadcast"
+        android:textAllCaps="false"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

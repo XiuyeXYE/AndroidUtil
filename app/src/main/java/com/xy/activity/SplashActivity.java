@@ -112,6 +112,12 @@ public class SplashActivity extends AppCompatActivity {
             startActivity(XType.newInstance(Intent::new, this, BindServiceActivity.class));
 
         });
+        findViewById(R.id.toBroadcastActivityBtn).setOnClickListener(v -> {
+
+            startActivity(XType.newInstance(Intent::new, this, BroadcastActivity.class));
+
+        });
+
 
     }
 

@@ -125,6 +125,13 @@
                 android:textAllCaps="false"
                 android:text="toBindServiceActivity" />
 
+            <Button
+                android:id="@+id/toBroadcastActivityBtn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textAllCaps="false"
+                android:text="toBroadcastActivity" />
+
         </LinearLayout>
     </ScrollView>
 

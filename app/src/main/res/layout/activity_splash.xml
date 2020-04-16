@@ -71,6 +71,27 @@
                 android:textAllCaps="false" />
 
             <Button
+                android:id="@+id/toBubbleActivityBtn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textAllCaps="false"
+                android:text="toBubbleActivity" />
+
+            <Button
+                android:id="@+id/generateClassAndCallFunctionBtn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="generateClassAndCallFunction"
+                android:textAllCaps="false" />
+
+            <Button
+                android:id="@+id/springForAndroidBtn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="springForAndroid"
+                android:textAllCaps="false" />
+
+            <Button
                 android:id="@+id/toFruitListViewActivityBtn"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -104,12 +125,7 @@
                 android:textAllCaps="false"
                 android:text="toRecyclerViewStaggerActivity" />
 
-            <Button
-                android:id="@+id/toBubbleActivityBtn"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textAllCaps="false"
-                android:text="toBubbleActivity" />
+
 
             <Button
                 android:id="@+id/startDemoServiceBtn"
@@ -131,6 +147,13 @@
                 android:layout_height="wrap_content"
                 android:textAllCaps="false"
                 android:text="toBroadcastActivity" />
+
+            <Button
+                android:id="@+id/toFragmentActivityBtn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textAllCaps="false"
+                android:text="toFragmentActivity" />
 
         </LinearLayout>
     </ScrollView>

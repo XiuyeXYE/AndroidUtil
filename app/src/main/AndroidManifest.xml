@@ -13,7 +13,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".BroadcastActivity"></activity>
+        <activity
+            android:name=".FragmentActivity"
+            android:label="FragmentActivity"></activity>
+        <activity android:name=".BroadcastActivity" />
 
         <receiver
             android:name="com.xy.broadcast.HelloBroadcastReceiver"
@@ -21,6 +24,7 @@
             android:exported="true">
             <intent-filter>
                 <action android:name="test.nothingfor" />
+
                 <category android:name="test.nothingfor" />
             </intent-filter>
         </receiver>

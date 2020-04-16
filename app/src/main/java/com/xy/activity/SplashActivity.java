@@ -4,6 +4,7 @@ import android.app.Notification;
 import android.app.PendingIntent;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.StrictMode;
 import android.view.Menu;
 import android.view.MenuItem;
 
@@ -13,8 +14,16 @@ import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 
 import com.xiuye.util.cls.XType;
+import com.xiuye.util.code.XYClassLoader;
+import com.xiuye.util.code.XYCompiler;
+import com.xy.itf.ADemo;
 import com.xy.service.HelloIntentService;
 import com.xy.util.UIUtil;
+
+import org.springframework.http.converter.StringHttpMessageConverter;
+import org.springframework.web.client.RestTemplate;
+
+import java.util.Map;
 
 public class SplashActivity extends AppCompatActivity {
 
@@ -117,9 +126,60 @@ public class SplashActivity extends AppCompatActivity {
             startActivity(XType.newInstance(Intent::new, this, BroadcastActivity.class));
 
         });
+        findViewById(R.id.toFragmentActivityBtn).setOnClickListener(v -> {
+            startActivity(XType.newInstance(Intent::new, this, FragmentActivity.class));
+        });
 
+        findViewById(R.id.generateClassAndCallFunctionBtn).setOnClickListener(v -> {
+
+            String aDemoCode =
+                    "package com.xy.itf.impl;" +
+                            "import com.xiuye.util.log.XLog;\n" +
+                            "import com.xy.itf.ADemo;\n" +
+                            "class ADemoImpl implements ADemo{\n" +
+                            "\n" +
+                            "    @Override\n" +
+                            "    public String says() {\n" +
+                            "        XLog.lg(\"called ADemoImpl::says()\");\n" +
+                            "        return \"Hello,I am ADemo son : ADemoImpl!\";\n" +
+                            "    }\n" +
+                            "}";
+            Map<String, String> codes = XType.map();
+            codes.put("com.xy.itf.impl.ADemoImpl", aDemoCode);
+            UIUtil.log(XYCompiler.compileCode(codes) ? "Compile successful!" : "Compile failed!");
+            try {
+                XYClassLoader cl = XType.createClassLoader();
+                Class<ADemo> clazz = cl.load("com.xy.itf.impl.ADemoImpl");
+                ADemo ad = clazz.newInstance();
+                UIUtil.log("ADemo says:", ad.says());
+            } catch (Exception e) {
+                e.printStackTrace();
+                UIUtil.log(e.getMessage());
+            } finally {
+                UIUtil.log("Loading class over!");
+            }
+        });
+
+        findViewById(R.id.springForAndroidBtn).setOnClickListener(v -> {
+            // The connection URL
+            String url = "https://www.baidu.com";
+
+            // Create a new RestTemplate instance
+            RestTemplate restTemplate = new RestTemplate();
+
+            // Add the String message converter
+            restTemplate.getMessageConverters().add(new StringHttpMessageConverter());
+
+            StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+            StrictMode.setThreadPolicy(policy);
+            // Make the HTTP GET request, marshaling the response to a String
+            String result = restTemplate.getForObject(url, String.class);
+            UIUtil.log("spring for android (RestTemplate) : ", result);
+
+        });
 
     }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -141,3 +201,4 @@ public class SplashActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 }
+

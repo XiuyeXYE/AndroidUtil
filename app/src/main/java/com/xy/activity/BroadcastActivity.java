@@ -53,7 +53,6 @@ public class BroadcastActivity extends AppCompatActivity {
             if (network != null && network.isAvailable()) {
                 UIUtil.log(context, network, "network is available");
             } else {
-
                 UIUtil.log(context, network, "network is unavailable");
             }
         }

@@ -16,6 +16,7 @@ import androidx.core.app.NotificationManagerCompat;
 import com.xiuye.util.cls.XType;
 import com.xiuye.util.code.XYClassLoader;
 import com.xiuye.util.code.XYCompiler;
+import com.xy.activity.ui.login.LoginActivity;
 import com.xy.itf.ADemo;
 import com.xy.service.HelloIntentService;
 import com.xy.util.UIUtil;
@@ -176,6 +177,10 @@ public class SplashActivity extends AppCompatActivity {
             String result = restTemplate.getForObject(url, String.class);
             UIUtil.log("spring for android (RestTemplate) : ", result);
 
+        });
+
+        findViewById(R.id.toLoginActivityBtn).setOnClickListener(v -> {
+            startActivity(XType.newInstance(Intent::new, this, LoginActivity.class));
         });
 
     }

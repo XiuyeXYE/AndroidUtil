@@ -1,8 +1,11 @@
 package com.xy.activity;
 
 import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -35,5 +38,24 @@ public class BroadcastActivity extends AppCompatActivity {
             UIUtil.log("already send broadcast!");
         });
 
+        BroadcastReceiver networkBr = XType.newInstance(NetworkChangeReceiver::new);
+        intentFilter = XType.newInstance(IntentFilter::new);
+        intentFilter.addAction("android.net.conn.CONNECTIVITY_CHANGE");
+        registerReceiver(networkBr, intentFilter);
+
+    }
+
+    class NetworkChangeReceiver extends BroadcastReceiver {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            ConnectivityManager connectivityManager = XType.cast(getSystemService(Context.CONNECTIVITY_SERVICE));
+            NetworkInfo network = connectivityManager.getActiveNetworkInfo();
+            if (network != null && network.isAvailable()) {
+                UIUtil.log(context, network, "network is available");
+            } else {
+
+                UIUtil.log(context, network, "network is unavailable");
+            }
+        }
     }
 }

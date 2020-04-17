@@ -162,6 +162,13 @@
                 android:textAllCaps="false"
                 android:text="toLoginActivity" />
 
+            <Button
+                android:id="@+id/toStoreFileActivityBtn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textAllCaps="false"
+                android:text="toStoreFileActivity" />
+
         </LinearLayout>
     </ScrollView>
 

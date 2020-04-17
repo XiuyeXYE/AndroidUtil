@@ -185,6 +185,9 @@ public class SplashActivity extends AppCompatActivity {
         findViewById(R.id.toStoreFileActivityBtn).setOnClickListener(v -> {
             startActivity(XType.newInstance(Intent::new, this, StoreFileActivity.class));
         });
+        findViewById(R.id.toSharedPreferencesActivityBtn).setOnClickListener(v -> {
+            startActivity(XType.newInstance(Intent::new, this, SharedPreferencesActivity.class));
+        });
 
 
     }

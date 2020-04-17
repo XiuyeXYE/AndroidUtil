@@ -1,6 +1,7 @@
 package com.xy.util;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -40,5 +41,20 @@ public class DataUtil {
         }
     }
 
+    public static void saveDataToSharedPreferences(Context context, String filename, ConsumerForData<SharedPreferences.Editor> consumer) {
+        try {
+            consumer.accept(context.getSharedPreferences(filename, Context.MODE_PRIVATE).edit());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void readDataFromSharedPreferences(Context context, String filename, ConsumerForData<SharedPreferences> consumer) {
+        try {
+            consumer.accept(context.getSharedPreferences(filename, Context.MODE_PRIVATE));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
 }

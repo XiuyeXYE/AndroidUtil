@@ -15,7 +15,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".SharedPreferencesActivity"></activity>
+        <activity android:name=".SqliteActivity"></activity>
+        <activity android:name=".SharedPreferencesActivity" />
         <activity android:name=".StoreFileActivity" />
         <activity
             android:name=".ui.login.LoginActivity"

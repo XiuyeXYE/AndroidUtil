@@ -204,6 +204,13 @@
                 android:textAllCaps="false"
                 android:text="toContentProviderActivity" />
 
+            <Button
+                android:id="@+id/toPhotoActivityBtn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textAllCaps="false"
+                android:text="toPhotoActivity" />
+
 
         </LinearLayout>
     </ScrollView>

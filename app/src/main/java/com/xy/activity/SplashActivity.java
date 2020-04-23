@@ -210,6 +210,10 @@ public class SplashActivity extends AppCompatActivity {
             startActivity(XType.newInstance(Intent::new, this, ContentProviderActivity.class));
         });
 
+        findViewById(R.id.toPhotoActivityBtn).setOnClickListener(v -> {
+            startActivity(XType.newInstance(Intent::new, this, PhotoActivity.class));
+        });
+
     }
 
 

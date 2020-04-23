@@ -197,6 +197,13 @@
                 android:textAllCaps="false"
                 android:text="toContactsActivity" />
 
+            <Button
+                android:id="@+id/toContentProviderActivityBtn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textAllCaps="false"
+                android:text="toContentProviderActivity" />
+
 
         </LinearLayout>
     </ScrollView>

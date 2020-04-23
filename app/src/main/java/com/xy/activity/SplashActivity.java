@@ -195,6 +195,9 @@ public class SplashActivity extends AppCompatActivity {
             startActivity(XType.newInstance(Intent::new, this, LitepalActivity.class));
         });
 
+        findViewById(R.id.toContactsActivityBtn).setOnClickListener(v -> {
+            startActivity(XType.newInstance(Intent::new, this, ContantsActivity.class));
+        });
 
     }
 

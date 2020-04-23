@@ -191,6 +191,9 @@ public class SplashActivity extends AppCompatActivity {
         findViewById(R.id.toSqliteActivityBtn).setOnClickListener(v -> {
             startActivity(XType.newInstance(Intent::new, this, SqliteActivity.class));
         });
+        findViewById(R.id.toLitepalActivityBtn).setOnClickListener(v -> {
+            startActivity(XType.newInstance(Intent::new, this, LitepalActivity.class));
+        });
 
 
     }

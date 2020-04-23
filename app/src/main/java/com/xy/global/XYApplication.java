@@ -1,13 +1,16 @@
 package com.xy.global;
 
 import android.app.Activity;
-import android.app.Application;
 import android.os.Bundle;
 
 import com.xiuye.util.log.XLog;
 import com.xy.util.UIUtil;
 
-public class XYApplication extends Application {
+import org.litepal.LitePalApplication;
+
+//import android.app.Application;
+
+public class XYApplication extends LitePalApplication {
     @Override
     public void onCreate() {
         super.onCreate();

@@ -3,6 +3,7 @@ package com.xy.activity;
 import android.app.Notification;
 import android.app.PendingIntent;
 import android.content.Intent;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.view.Menu;
@@ -59,16 +60,23 @@ public class SplashActivity extends AppCompatActivity {
         });
 
         findViewById(R.id.notificationBtn).setOnClickListener(v -> {
+            Intent intent = new Intent(this, ListViewActivity.class);
+            PendingIntent pi = PendingIntent.getActivity(this, 0, intent, 0);
+
             NotificationCompat.Builder builder = new NotificationCompat.Builder(this, "Game")
                     .setSmallIcon(R.drawable.greenapple)
                     .setContentTitle("My notification")
                     .setContentText("Much longer text that cannot fit one line...")
-                    .setStyle(new NotificationCompat.BigTextStyle()
-                            .bigText("Much longer text that cannot fit one line..."))
+                    .setLargeIcon(BitmapFactory.decodeResource(getResources(), R.drawable.greenapple))
+                    .setContentIntent(pi)
+                    .setAutoCancel(true)
+                    .setDefaults(NotificationCompat.DEFAULT_ALL)
+//                    .setStyle(new NotificationCompat.BigTextStyle()
+//                            .bigText("Much longer text that cannot fit one line..."))
                     .setPriority(NotificationCompat.PRIORITY_DEFAULT);
             Notification notification = builder.build();
             NotificationManagerCompat notificationManagerCompat = NotificationManagerCompat.from(this);
-            notificationManagerCompat.notify(123, notification);
+            notificationManagerCompat.notify(2, notification);
         });
 
         findViewById(R.id.toRecyclerViewActivityBtn).setOnClickListener(v -> {
@@ -109,7 +117,7 @@ public class SplashActivity extends AppCompatActivity {
 //                            .setBubbleMetadata()
                             .addPerson("What?");
             NotificationManagerCompat managerCompat = NotificationManagerCompat.from(this);
-            managerCompat.notify(456, builder.build());
+            managerCompat.notify(3, builder.build());
         });
 
         findViewById(R.id.startDemoServiceBtn).setOnClickListener(v -> {

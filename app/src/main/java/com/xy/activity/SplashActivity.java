@@ -10,7 +10,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 
@@ -27,7 +26,7 @@ import org.springframework.web.client.RestTemplate;
 
 import java.util.Map;
 
-public class SplashActivity extends AppCompatActivity {
+public class SplashActivity extends AbstractBaseActivity {
 
     @Override
     public Object getSystemService(@NonNull String name) {
@@ -213,6 +212,16 @@ public class SplashActivity extends AppCompatActivity {
         findViewById(R.id.toPhotoActivityBtn).setOnClickListener(v -> {
             startActivity(XType.newInstance(Intent::new, this, PhotoActivity.class));
         });
+
+        findViewById(R.id.toAudioActivityBtn).setOnClickListener(v -> {
+//            startActivity(XType.newInstance(Intent::new,this,AudioActivity.class));
+            to(AudioActivity.class);
+        });
+        findViewById(R.id.toVideoActivityBtn).setOnClickListener(v -> {
+//            startActivity(XType.newInstance(Intent::new,this,AudioActivity.class));
+            to(VideoViewActivity.class);
+        });
+
 
     }
 

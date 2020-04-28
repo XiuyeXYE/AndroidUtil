@@ -17,21 +17,21 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".PhotoActivity"></activity>
+        <activity android:name=".VideoViewActivity"></activity>
+        <activity android:name=".AbstractBaseActivity" />
+        <activity android:name=".AudioActivity" />
+        <activity android:name=".PhotoActivity" />
         <activity android:name=".ContentProviderActivity" />
 
         <provider
-            android:authorities="com.xiuye.fileprovider"
             android:name="androidx.core.content.FileProvider"
+            android:authorities="com.xiuye.fileprovider"
             android:exported="false"
-            android:grantUriPermissions="true"
-
-            >
+            android:grantUriPermissions="true">
             <meta-data
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/file_paths" />
         </provider>
-
         <provider
             android:name="com.xy.provider.DemoContentProvider"
             android:authorities="com.xiuye.provider"

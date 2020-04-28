@@ -204,12 +204,27 @@
                 android:textAllCaps="false"
                 android:text="toContentProviderActivity" />
 
+
             <Button
                 android:id="@+id/toPhotoActivityBtn"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textAllCaps="false"
                 android:text="toPhotoActivity" />
+
+            <Button
+                android:id="@+id/toAudioActivityBtn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textAllCaps="false"
+                android:text="toAudioActivity" />
+
+            <Button
+                android:id="@+id/toVideoActivityBtn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textAllCaps="false"
+                android:text="toVideoActivity" />
 
 
         </LinearLayout>

@@ -8,6 +8,9 @@ import android.content.pm.PackageManager;
 import android.os.AsyncTask;
 import android.telephony.TelephonyManager;
 
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
+
 import com.xiuye.util.log.XLog;
 
 import java.util.ArrayList;
@@ -116,6 +119,27 @@ public class UIUtil {
     public interface Consumer<T> {
         void accept(T t);
     }
+
+
+    public static void checkAndRequestPermission(Activity that, String permission, int requestCode, Runnable runnable) {
+        if (ContextCompat.checkSelfPermission(that, permission) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(that, new String[]{permission}, requestCode);
+        } else {
+            runnable.run();
+        }
+    }
+
+    public static void handleRequestPermissionResult(Activity activity, int requestCode, String[] permissions, int[] grantResults, int selfRequestCode, Runnable runnable) {
+        if (requestCode == selfRequestCode) {
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                runnable.run();
+            } else {
+                UIUtil.log(activity, "拒绝权限无法使用程序!");
+                activity.finish();
+            }
+        }
+    }
+
 
 }
 

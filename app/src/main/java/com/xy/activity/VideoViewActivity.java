@@ -17,7 +17,7 @@ public class VideoViewActivity extends AppCompatActivity {
     private VideoView videoView;
 
     private void initVideoView() {
-        File file = new File(Environment.getExternalStorageDirectory(), "movie.mp4");
+        File file = new File(Environment.getExternalStorageDirectory(), "Pictures/movie.mp4");
         this.videoView.setVideoPath(file.getPath());
     }
 

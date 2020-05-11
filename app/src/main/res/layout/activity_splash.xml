@@ -226,6 +226,12 @@
                 android:textAllCaps="false"
                 android:text="toVideoActivity" />
 
+            <Button
+                android:id="@+id/toPDFActivityBtn"
+                android:textAllCaps="false"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="toPDFActivity" />
 
         </LinearLayout>
     </ScrollView>

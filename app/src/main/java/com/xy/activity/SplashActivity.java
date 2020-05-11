@@ -225,6 +225,11 @@ public class SplashActivity extends AbstractBaseActivity {
         findViewById(R.id.toPDFActivityBtn).setOnClickListener(v -> {
             to(PDFActivity.class);
         });
+        findViewById(R.id.toAnimationActivityBtn).setOnClickListener(v -> {
+            to(AnimationActivity.class);
+        });
+
+
 
     }
 

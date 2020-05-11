@@ -233,6 +233,13 @@
                 android:layout_height="match_parent"
                 android:text="toPDFActivity" />
 
+            <Button
+                android:id="@+id/toAnimationActivityBtn"
+                android:textAllCaps="false"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="toAnimationActivity" />
+
         </LinearLayout>
     </ScrollView>
 

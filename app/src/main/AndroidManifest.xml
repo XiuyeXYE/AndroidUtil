@@ -17,7 +17,12 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".PDFActivity"></activity>
+        <!--<meta-data
+            android:name="com.google.android.actions"
+            android:resource="@xml/actions" />-->
+
+        <activity android:name=".AnimationActivity" />
+        <activity android:name=".PDFActivity" />
         <activity android:name=".VideoViewActivity" />
         <activity android:name=".AbstractBaseActivity" />
         <activity android:name=".AudioActivity" />

@@ -228,6 +228,15 @@ public class SplashActivity extends AbstractBaseActivity {
         findViewById(R.id.toAnimationActivityBtn).setOnClickListener(v -> {
             to(AnimationActivity.class);
         });
+        findViewById(R.id.toMixtureActivityBtn).setOnClickListener(v -> {
+            to(MixtureActivity.class);
+        });
+        findViewById(R.id.toSettingsActivityBtn).setOnClickListener(v -> {
+            to(MySettingsActivity.class);
+        });
+        findViewById(R.id.toSearchActivityBtn).setOnClickListener(v -> {
+            to(SearchableActivity.class);
+        });
 
 
 

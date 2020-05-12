@@ -240,6 +240,27 @@
                 android:layout_height="match_parent"
                 android:text="toAnimationActivity" />
 
+            <Button
+                android:id="@+id/toMixtureActivityBtn"
+                android:textAllCaps="false"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="toMixtureActivity" />
+
+            <Button
+                android:id="@+id/toSettingsActivityBtn"
+                android:textAllCaps="false"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="toSettingsActivity" />
+
+            <Button
+                android:id="@+id/toSearchActivityBtn"
+                android:textAllCaps="false"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="toSearchActivity" />
+
         </LinearLayout>
     </ScrollView>
 

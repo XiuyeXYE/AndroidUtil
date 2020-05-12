@@ -16,4 +16,9 @@ public abstract class AbstractBaseActivity extends AppCompatActivity {
     public <T extends AppCompatActivity> void to(Class<T> clazz) {
         startActivity(new Intent(this, clazz));
     }
+
+    public void to(Intent intent) {
+        startActivity(intent);
+    }
+
 }

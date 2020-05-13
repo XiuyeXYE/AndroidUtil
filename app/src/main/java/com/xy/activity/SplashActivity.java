@@ -234,6 +234,7 @@ public class SplashActivity extends AbstractBaseActivity {
         findViewById(R.id.toSettingsActivityBtn).setOnClickListener(v -> {
             to(MySettingsActivity.class);
         });
+
         findViewById(R.id.toSearchActivityBtn).setOnClickListener(v -> {
             to(SearchableActivity.class);
         });
@@ -242,6 +243,13 @@ public class SplashActivity extends AbstractBaseActivity {
             to(ZoomActivity.class);
         });
 
+        findViewById(R.id.toSpringAnimationActivityBtn).setOnClickListener(v -> {
+            to(SpringAnimationActivity.class);
+        });
+
+        findViewById(R.id.toOpenGLES20ActivityBtn).setOnClickListener(v -> {
+            to(OpenGLES20Activity.class);
+        });
 
 
     }

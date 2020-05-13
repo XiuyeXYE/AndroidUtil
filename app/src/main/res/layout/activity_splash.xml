@@ -230,35 +230,35 @@
                 android:id="@+id/toPDFActivityBtn"
                 android:textAllCaps="false"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:text="toPDFActivity" />
 
             <Button
                 android:id="@+id/toAnimationActivityBtn"
                 android:textAllCaps="false"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:text="toAnimationActivity" />
 
             <Button
                 android:id="@+id/toMixtureActivityBtn"
                 android:textAllCaps="false"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:text="toMixtureActivity" />
 
             <Button
                 android:id="@+id/toSettingsActivityBtn"
                 android:textAllCaps="false"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:text="toSettingsActivity" />
 
             <Button
                 android:id="@+id/toSearchActivityBtn"
                 android:textAllCaps="false"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:text="toSearchActivity" />
 
             <Button
@@ -267,6 +267,20 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:text="toZoomActivity" />
+
+            <Button
+                android:id="@+id/toSpringAnimationActivityBtn"
+                android:textAllCaps="false"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="toSpringAnimationActivity" />
+
+            <Button
+                android:id="@+id/toOpenGLES20ActivityBtn"
+                android:textAllCaps="false"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="toOpenGLES20Activity" />
 
         </LinearLayout>
     </ScrollView>

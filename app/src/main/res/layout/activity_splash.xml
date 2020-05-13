@@ -261,6 +261,13 @@
                 android:layout_height="match_parent"
                 android:text="toSearchActivity" />
 
+            <Button
+                android:id="@+id/toZoomActivityBtn"
+                android:textAllCaps="false"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="toZoomActivity" />
+
         </LinearLayout>
     </ScrollView>
 

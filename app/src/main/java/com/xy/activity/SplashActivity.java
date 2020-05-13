@@ -238,6 +238,10 @@ public class SplashActivity extends AbstractBaseActivity {
             to(SearchableActivity.class);
         });
 
+        findViewById(R.id.toZoomActivityBtn).setOnClickListener(v -> {
+            to(ZoomActivity.class);
+        });
+
 
 
     }

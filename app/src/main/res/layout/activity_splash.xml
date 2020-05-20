@@ -282,6 +282,27 @@
                 android:layout_height="match_parent"
                 android:text="toOpenGLES20Activity" />
 
+            <Button
+                android:id="@+id/toCustomDrawableViewActivityBtn"
+                android:textAllCaps="false"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="toCustomDrawableViewActivity" />
+
+            <Button
+                android:id="@+id/toMyDrawableActivityBtn"
+                android:textAllCaps="false"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="toMyDrawableActivity" />
+
+            <Button
+                android:id="@+id/toTransitionDrawableActivityBtn"
+                android:textAllCaps="false"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="toTransitionDrawableActivity" />
+
         </LinearLayout>
     </ScrollView>
 

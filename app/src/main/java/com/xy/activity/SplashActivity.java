@@ -250,6 +250,15 @@ public class SplashActivity extends AbstractBaseActivity {
         findViewById(R.id.toOpenGLES20ActivityBtn).setOnClickListener(v -> {
             to(OpenGLES20Activity.class);
         });
+//        findViewById(R.id.toCustomDrawableActivityBtn).setOnClickListener(v -> {
+//            to(CustomDrawableViewActivity.class);
+//        });
+        //equals:
+        this.clickBind(R.id.toCustomDrawableViewActivityBtn, CustomDrawableViewActivity.class);
+
+        clickBind(R.id.toMyDrawableActivityBtn, MyDrawableActivity.class);
+
+        clickBind(R.id.toTransitionDrawableActivityBtn, TransitionDrawableActivity.class);
 
 
     }

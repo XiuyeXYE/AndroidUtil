@@ -16,7 +16,7 @@ package com.xy.util;
  * 应该毫 无任何约束，十分流畅
  * 8.内部变量result保存callback的结果，error保存callback运行中产生的异常 或者未处理的异常
  * 9.世界上，每次执行Promise都是直接执行的！
- *
+ * 10.this promise is only single thread
  * @param <RESULT> 结果类型
  */
 public class Promise<RESULT> {

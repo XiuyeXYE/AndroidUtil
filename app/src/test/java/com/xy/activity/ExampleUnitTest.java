@@ -5,6 +5,12 @@ import com.xy.util.Promise;
 
 import org.junit.Test;
 
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.ExecutorCompletionService;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
+
 import static org.junit.Assert.assertEquals;
 
 /**
@@ -73,5 +79,67 @@ public class ExampleUnitTest {
         });
     }
 
+    @Test
+    public void testPool() throws ExecutionException, InterruptedException {
+        ExecutorService pool = Executors.newFixedThreadPool(10);
+        ExecutorCompletionService<Integer> pl = new ExecutorCompletionService<Integer>(pool);
+        for (int i = 0; i < 100; i++) {
+            int j = i;
+            Future<Integer> k = pl.submit(() -> {
+                return j;
+            });
+            XLog.lg(k.get());
+
+        }
+        for (int i = 0; i < 100; i++) {
+            Future<Integer> k = pl.take();
+            XLog.lg(k.get());
+        }
+//        XLog.lg(pl.take());
+
+
+    }
+
+    Promise<Integer> pro = new Promise<>(() -> 100);
+
+    @Test
+    public void multiThreads() throws InterruptedException {
+
+        Thread t1 = new Thread(() -> {
+            pro = pro.then((d) -> {
+                XLog.lg(d);
+//                for(;;){}
+                return 101;
+            });
+        });
+        Thread t2 = new Thread(() -> {
+            pro = pro.then((d) -> {
+                XLog.lg(d);
+                return 102;
+            });
+        });
+        t1.start();
+        t1.join();
+        t2.start();
+        t2.join();
+
+        for (int i = 0; i < 100; i++) {
+            int j = i;
+            //java thread every not deamon will all be called!
+            Thread t = new Thread(() -> {
+                pro = pro.then((d) -> {
+                    XLog.lg(d);
+                    return j;
+                });
+            });
+            t.start();
+//            t.join();// will be ordered!
+//            XLog.lg("join:",i);
+        }
+        pro.then((d) -> {
+            XLog.lg("end", d);
+        });
+
+    }
 
 }

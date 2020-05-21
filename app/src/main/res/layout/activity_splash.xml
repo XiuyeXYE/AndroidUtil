@@ -303,6 +303,13 @@
                 android:layout_height="match_parent"
                 android:text="toTransitionDrawableActivity" />
 
+            <Button
+                android:id="@+id/toImageViewActivityBtn"
+                android:textAllCaps="false"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="toImageViewActivity" />
+
         </LinearLayout>
     </ScrollView>
 

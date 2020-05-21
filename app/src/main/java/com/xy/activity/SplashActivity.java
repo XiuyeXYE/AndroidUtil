@@ -260,7 +260,7 @@ public class SplashActivity extends AbstractBaseActivity {
 
         clickBind(R.id.toTransitionDrawableActivityBtn, TransitionDrawableActivity.class);
 
-
+        clickBind(R.id.toImageViewActivityBtn, ImageViewActivity.class);
     }
 
 

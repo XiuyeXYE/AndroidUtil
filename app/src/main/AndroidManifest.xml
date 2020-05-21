@@ -27,7 +27,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ImageViewActivity"></activity>
+        <activity android:name=".ChartsActivity"></activity>
+        <activity android:name=".ImageViewActivity" />
         <activity android:name=".TransitionDrawableActivity" />
         <activity android:name=".MyDrawableActivity" />
         <activity android:name=".CustomDrawableViewActivity" />

@@ -3,6 +3,8 @@ package com.xy.global;
 import android.app.Activity;
 import android.os.Bundle;
 
+import androidx.multidex.MultiDex;
+
 import com.xiuye.util.log.XLog;
 import com.xy.util.UIUtil;
 
@@ -14,6 +16,7 @@ public class XYApplication extends LitePalApplication {
     @Override
     public void onCreate() {
         super.onCreate();
+        MultiDex.install(this);
         this.registerActivityLifecycleCallbacks(new ActivityLifecycleCallbacks() {
             @Override
             public void onActivityCreated(Activity activity, Bundle savedInstanceState) {

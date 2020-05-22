@@ -17,6 +17,9 @@ package com.xy.util;
  * 8.内部变量result保存callback的结果，error保存callback运行中产生的异常 或者未处理的异常
  * 9.世界上，每次执行Promise都是直接执行的！
  * 10.this promise is only single thread
+ * 11.result不仅是当前Promise计算的结果，
+ * 更是传递给下一个的入参，其作用带有next属性
+ *
  * @param <RESULT> 结果类型
  */
 public class Promise<RESULT> {
@@ -34,7 +37,7 @@ public class Promise<RESULT> {
      *
      * @param result
      */
-    private Promise(RESULT result) {
+    public Promise(RESULT result) {
         this.result = result;
     }
 
@@ -44,8 +47,17 @@ public class Promise<RESULT> {
      * @param result 新的callback计算的结果
      * @param error  传入callback调用产生的error 或者继承上一个的Promise未处理的error
      */
-    private Promise(RESULT result, Throwable error) {
+    public Promise(RESULT result, Throwable error) {
         this.result = result;
+        this.error = error;
+    }
+
+    /**
+     * 直接传递错误
+     *
+     * @param error
+     */
+    public Promise(Throwable error) {
         this.error = error;
     }
 
@@ -87,6 +99,7 @@ public class Promise<RESULT> {
     public Promise(Runnable callback) {
         catchExec(() -> callback.run());
     }
+
 
     /**
      * 不处理上一个Promise返回的结果，并返回新的结果给 下一个Promise void call()
@@ -130,6 +143,66 @@ public class Promise<RESULT> {
      */
     public Promise<RESULT> then(Runnable callback) {
         return new Promise<>(catchExec(() -> callback.run()), error);
+    }
+
+    private boolean exist() {
+        return result != null;
+    }
+
+    /**
+     * 上一个Promise结果存在（!=null）则执行！
+     * 不处理上一个Promise返回的结果，
+     * 并返回新的结果给 下一个Promise
+     * void call()
+     *
+     * @param callback lambda代码
+     * @param <R>      处理异常后返回的结果
+     * @return 新的Promise对象
+     */
+    public <R> Promise<R> exist(Callback<R> callback) {
+        return exist() ? then(callback) : new Promise<>(error);
+    }
+
+    /**
+     * 上一个Promise结果存在（!=null）则执行！
+     * 处理上一个Promise返回的结果,
+     * 并返回新的结果给 下一个Promise
+     * R call(I)
+     *
+     * @param callback lambda代码
+     * @param <R>      处理异常后返回的结果
+     * @return 新的Promise对象
+     */
+    public <R> Promise<R> exist(CallbackWithParam<R, RESULT> callback) {
+        return exist() ? then(callback) : new Promise<>(error);
+    }
+
+    // 没有返回类型的,（相当于）继承了RESULT 类型！
+
+    /**
+     * 上一个Promise结果存在（!=null）则执行！
+     * 处理上一个Promise返回的结果,
+     * 不返回新的结果给 下一个Promise
+     * void call(I)
+     *
+     * @param callback lambda代码
+     * @return 新的Promise对象
+     */
+    public Promise<RESULT> exist(RunnableWithParam<RESULT> callback) {
+        return exist() ? then(callback) : new Promise<>(error);
+    }
+
+    /**
+     * 上一个Promise结果存在（!=null）则执行！
+     * 不处理上一个Promise返回的结果,
+     * 不返回新的结果给 下一个Promise
+     * void call()
+     *
+     * @param callback lambda代码
+     * @return 新的Promise对象
+     */
+    public Promise<RESULT> exist(Runnable callback) {
+        return exist() ? then(callback) : new Promise<>(error);
     }
 
 //    private <R> Promise<R> thenInherit(Promise<R> pro){
@@ -341,4 +414,24 @@ public class Promise<RESULT> {
         exIndeed = !implicit;
     }
 
+    /**
+     * give value promise
+     *
+     * @param r
+     * @param <R>
+     * @return
+     */
+    public static <R> Promise<R> resolve(R r) {
+        return new Promise<>(r);
+    }
+
+    /**
+     * exception result promise
+     *
+     * @param e
+     * @return
+     */
+    public static Promise<Throwable> reject(Throwable e) {
+        return new Promise<>(e);
+    }
 }

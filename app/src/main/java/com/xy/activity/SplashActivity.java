@@ -264,6 +264,7 @@ public class SplashActivity extends AbstractBaseActivity {
 
         clickBind(R.id.toChartsActivityBtn, ChartsActivity.class);
 
+        clickBind(R.id.toDialogActivityBtn, DialogActivity.class);
 
     }
 

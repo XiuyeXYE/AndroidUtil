@@ -317,6 +317,13 @@
                 android:layout_height="match_parent"
                 android:text="toChartsActivity" />
 
+            <Button
+                android:id="@+id/toDialogActivityBtn"
+                android:textAllCaps="false"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="toDialogActivity" />
+
         </LinearLayout>
     </ScrollView>
 

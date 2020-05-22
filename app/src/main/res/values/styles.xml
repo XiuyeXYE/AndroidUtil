@@ -26,4 +26,21 @@
         <item name="android:background">@color/black_overlay</item>
     </style>
 
+    <style name="DialogActivityTheme" parent="AppTheme">
+        <!-- 暂时没用 -->
+        <!--背景色,此处的背景色请一定要设置为透明度背景色-->
+        <item name="android:windowBackground">@color/transparent</item>
+        <!--window Is Translucent 窗口是半透明的-->
+        <item name="android:windowIsTranslucent">true</item>
+        <!--window No Title窗口无标题-->
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowIsFloating">true</item>
+        <!--弹出动画-->
+        <item name="android:windowAnimationStyle">@null</item>
+        <item name="android:backgroundDimEnabled">true</item>
+        <!-- 暂时没用 -->
+        <item name="android:background">@color/transparent</item>
+        <item name="android:windowFrame">@null</item>
+    </style>
+
 </resources>

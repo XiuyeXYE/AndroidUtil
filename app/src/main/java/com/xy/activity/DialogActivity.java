@@ -5,6 +5,7 @@ import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.xy.util.Promise;
+import com.xy.util.UIUtil;
 
 public class DialogActivity extends AppCompatActivity {
 
@@ -17,6 +18,8 @@ public class DialogActivity extends AppCompatActivity {
 //        });
         Promise.resolve(getActionBar()).exist(bar -> {
             bar.hide();
+        }).lastly(() -> {
+            UIUtil.log(this, "lastly inner impl from then");
         });
 
     }

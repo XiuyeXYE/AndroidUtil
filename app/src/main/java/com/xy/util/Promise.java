@@ -1,5 +1,7 @@
 package com.xy.util;
 
+import com.xiuye.util.cls.XType;
+
 /**
  * Promise 设计纲要
  * 1.Promise 必须有 结果，即使计算过程中有异常错误，结果应该为null， 并传递给 下一个新的Promise，有 错误
@@ -23,6 +25,7 @@ package com.xy.util;
  * @param <RESULT> 结果类型
  */
 public class Promise<RESULT> {
+
 
     // 一般是这步的计算结果，传递给下一步
     private RESULT result;
@@ -102,7 +105,9 @@ public class Promise<RESULT> {
 
 
     /**
-     * 不处理上一个Promise返回的结果，并返回新的结果给 下一个Promise void call()
+     * 不处理上一个Promise返回的结果，
+     * 并返回新的结果给 下一个Promise
+     * void call()
      *
      * @param callback lambda代码
      * @param <R>      处理异常后返回的结果
@@ -113,7 +118,9 @@ public class Promise<RESULT> {
     }
 
     /**
-     * 处理上一个Promise返回的结果,并返回新的结果给 下一个Promise R call(I)
+     * 处理上一个Promise返回的结果,
+     * 并返回新的结果给 下一个Promise
+     * R call(I)
      *
      * @param callback lambda代码
      * @param <R>      处理异常后返回的结果
@@ -126,7 +133,9 @@ public class Promise<RESULT> {
     // 没有返回类型的,（相当于）继承了RESULT 类型！
 
     /**
-     * 处理上一个Promise返回的结果,不返回新的结果给 下一个Promise void call(I)
+     * 处理上一个Promise返回的结果,
+     * 不返回新的结果给 下一个Promise
+     * void call(I)
      *
      * @param callback lambda代码
      * @return 新的Promise对象
@@ -136,7 +145,9 @@ public class Promise<RESULT> {
     }
 
     /**
-     * 不处理上一个Promise返回的结果,不返回新的结果给 下一个Promise void call()
+     * 不处理上一个Promise返回的结果,
+     * 不返回新的结果给 下一个Promise
+     * void call()
      *
      * @param callback lambda代码
      * @return 新的Promise对象
@@ -145,9 +156,68 @@ public class Promise<RESULT> {
         return new Promise<>(catchExec(() -> callback.run()), error);
     }
 
-    private boolean exist() {
+    /**
+     * 最终
+     * equals finally
+     * void call()
+     *
+     * @param callback lambda代码
+     * @param <R>      处理异常后返回的结果
+     * @return 新的Promise对象
+     */
+    public <R> Promise<R> lastly(Callback<R> callback) {
+        return then(callback);
+    }
+
+    /**
+     * 最终
+     * equals finally
+     * R call(I)
+     *
+     * @param callback lambda代码
+     * @param <R>      处理异常后返回的结果
+     * @return 新的Promise对象
+     */
+    public <R> Promise<R> lastly(CallbackWithParam<R, RESULT> callback) {
+        return then(callback);
+    }
+
+    // 没有返回类型的,（相当于）继承了RESULT 类型！
+
+    /**
+     * 最终
+     * equals finally
+     * void call(I)
+     *
+     * @param callback lambda代码
+     * @return 新的Promise对象
+     */
+    public Promise<RESULT> lastly(RunnableWithParam<RESULT> callback) {
+        return then(callback);
+    }
+
+    /**
+     * 最终
+     * equals finally
+     * void call()
+     *
+     * @param callback lambda代码
+     * @return 新的Promise对象
+     */
+    public Promise<RESULT> lastly(Runnable callback) {
+        return then(callback);
+    }
+
+    /**
+     * 判断result是否不等于null
+     * 也就是存在啊
+     *
+     * @return
+     */
+    public boolean exist() {
         return result != null;
     }
+
 
     /**
      * 上一个Promise结果存在（!=null）则执行！
@@ -160,6 +230,7 @@ public class Promise<RESULT> {
      * @return 新的Promise对象
      */
     public <R> Promise<R> exist(Callback<R> callback) {
+        //为null就不必再次传入result了
         return exist() ? then(callback) : new Promise<>(error);
     }
 
@@ -203,6 +274,116 @@ public class Promise<RESULT> {
      */
     public Promise<RESULT> exist(Runnable callback) {
         return exist() ? then(callback) : new Promise<>(error);
+    }
+
+    /**
+     * 存在result并且是boolean类型，
+     * 并进行转化
+     *
+     * @return
+     */
+    public boolean truely() {
+        boolean b = false;
+        if (exist() && result instanceof Boolean) {
+            b = XType.cast(result);
+        }
+        return false;
+    }
+
+    /**
+     * if result == true
+     * void call()
+     *
+     * @param callback lambda代码
+     * @param <R>      处理异常后返回的结果
+     * @return 新的Promise对象
+     */
+    public <R> Promise<R> truely(Callback<R> callback) {
+        return truely() ? then(callback) : new Promise<>(error);
+    }
+
+    /**
+     * if result == true
+     * R call(I)
+     *
+     * @param callback lambda代码
+     * @param <R>      处理异常后返回的结果
+     * @return 新的Promise对象
+     */
+    public <R> Promise<R> truely(CallbackWithParam<R, RESULT> callback) {
+        return truely() ? then(callback) : new Promise<>(error);
+    }
+
+    // 没有返回类型的,（相当于）继承了RESULT 类型！
+
+    /**
+     * if result == true
+     * void call(I)
+     *
+     * @param callback lambda代码
+     * @return 新的Promise对象
+     */
+    public Promise<RESULT> truely(RunnableWithParam<RESULT> callback) {
+        return truely() ? then(callback) : new Promise<>(error);
+    }
+
+    /**
+     * if result == true
+     * void call()
+     *
+     * @param callback lambda代码
+     * @return 新的Promise对象
+     */
+    public Promise<RESULT> truely(Runnable callback) {
+        return truely() ? then(callback) : new Promise<>(error);
+    }
+
+    /**
+     * if result == false
+     * void call()
+     *
+     * @param callback lambda代码
+     * @param <R>      处理异常后返回的结果
+     * @return 新的Promise对象
+     */
+    public <R> Promise<R> falsely(Callback<R> callback) {
+        return !truely() ? then(callback) : new Promise<>(error);
+    }
+
+    /**
+     * if result == false
+     * R call(I)
+     *
+     * @param callback lambda代码
+     * @param <R>      处理异常后返回的结果
+     * @return 新的Promise对象
+     */
+    public <R> Promise<R> falsely(CallbackWithParam<R, RESULT> callback) {
+        return !truely() ? then(callback) : new Promise<>(error);
+    }
+
+    // 没有返回类型的,（相当于）继承了RESULT 类型！
+
+    /**
+     * if result == false
+     * void call(I)
+     *
+     * @param callback lambda代码
+     * @return 新的Promise对象
+     */
+    public Promise<RESULT> falsely(RunnableWithParam<RESULT> callback) {
+        return !truely() ? then(callback) : new Promise<>(error);
+    }
+
+    /**
+     * if result == false
+     * void call()
+     *
+     * @param callback lambda代码
+     * @return 新的Promise对象
+     */
+    public Promise<RESULT> falsely(Runnable callback) {
+        return !truely() ? then(callback) : new Promise<>(error);
     }
 
 //    private <R> Promise<R> thenInherit(Promise<R> pro){
@@ -289,6 +470,7 @@ public class Promise<RESULT> {
 //        }
 //        return pro;
 //    }
+
 
     /**
      * 捕获代码执行过程中的异常！

@@ -6,7 +6,7 @@ import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.xiuye.util.log.XLog;
+import com.xiuye.util.cls.XType;
 import com.xy.util.Promise;
 
 public abstract class AbstractBaseActivity extends AppCompatActivity {
@@ -25,33 +25,35 @@ public abstract class AbstractBaseActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    public <T extends AppCompatActivity> void clickBind(int id, Class<T> clazz) {
+    public void to(Intent intent, int requesCode) {
+        startActivityForResult(intent, requesCode);
+    }
+
+    public <T extends AppCompatActivity> void clickTo(int id, Class<T> clazz) {
         findViewById(id).setOnClickListener(v -> {
             to(clazz);
         });
     }
 
+    public void clickBind(int id) {
+        Promise.resolve(this instanceof View.OnClickListener)
+                .truely(b -> {
+                    clickBind(id, XType.cast(this));
+                });
+    }
+
+    public void clickBind(int id, View.OnClickListener clicker) {
+        byId(id).exist(view -> {
+                    view.setOnClickListener(clicker);
+                }
+        );
+    }
+
     public <T extends View> Promise<T> byId(int id) {
-        return new Promise<T>(() -> {
+        return new Promise<>(() -> {
             return findViewById(id);
         });
     }
 
-
-    public static void main(String[] args) {
-        Promise m = new Promise(() -> {
-            return 123;
-        }).then((i) -> {
-            System.out.println(i);
-            System.out.println(i.getClass());
-            return "ABC";
-        }).then((s) -> {
-            XLog.log(s);
-            return XLog.class;
-        }).then((x) -> {
-            System.out.println(x);
-        });
-        System.out.println(m);
-    }
 
 }

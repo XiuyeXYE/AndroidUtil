@@ -41,7 +41,7 @@ public class PhotoActivity extends AppCompatActivity {
         picture = findViewById(R.id.photoDisplay);
 
 
-        findViewById(R.id.takePhoteBtn).setOnClickListener(v -> {
+        findViewById(R.id.takePhotoBtn).setOnClickListener(v -> {
             File outputImg = new File(getExternalCacheDir(), "output_image.jpg");
             if (outputImg.exists()) {
                 outputImg.delete();

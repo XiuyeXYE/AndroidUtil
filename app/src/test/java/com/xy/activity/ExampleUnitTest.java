@@ -1,5 +1,7 @@
 package com.xy.activity;
 
+import com.xiuye.util.cls.XType;
+import com.xiuye.util.code.XCode;
 import com.xiuye.util.log.XLog;
 import com.xy.util.Promise;
 
@@ -142,4 +144,40 @@ public class ExampleUnitTest {
 
     }
 
+    @Test
+    public void booleanTest() {
+        XLog.log(null instanceof Boolean);
+        boolean b = false;
+        Object o = b;
+        XLog.log(o instanceof Boolean);
+        Boolean c = b;
+        boolean d = c;
+        XLog.lg(d);
+        XLog.lg(null instanceof Object);
+        XLog.lg(null instanceof String);
+
+        boolean e = XType.cast(o);
+        XLog.lg(o instanceof Boolean, "cast:", e);
+        e = XType.cast(null);
+        XLog.lg("null value to boolean:", e);
+    }
+
+    @Test
+    public void alotofPromise() {
+
+        XCode.runS(() -> {
+            Promise<Integer> pro = Promise.resolve(100);
+            for (int i = 0; i < 10000000; i++) {
+                int j = i;
+                pro = pro.then((d) -> {
+                    XLog.lg(d);
+                    return 200 + j;
+                });
+            }
+            pro.lastly(d -> {
+                XLog.lg(d);
+            });
+        });
+
+    }
 }

@@ -254,17 +254,19 @@ public class SplashActivity extends AbstractBaseActivity {
 //            to(CustomDrawableViewActivity.class);
 //        });
         //equals:
-        this.clickBind(R.id.toCustomDrawableViewActivityBtn, CustomDrawableViewActivity.class);
+        this.clickTo(R.id.toCustomDrawableViewActivityBtn, CustomDrawableViewActivity.class);
 
-        clickBind(R.id.toMyDrawableActivityBtn, MyDrawableActivity.class);
+        clickTo(R.id.toMyDrawableActivityBtn, MyDrawableActivity.class);
 
-        clickBind(R.id.toTransitionDrawableActivityBtn, TransitionDrawableActivity.class);
+        clickTo(R.id.toTransitionDrawableActivityBtn, TransitionDrawableActivity.class);
 
-        clickBind(R.id.toImageViewActivityBtn, ImageViewActivity.class);
+        clickTo(R.id.toImageViewActivityBtn, ImageViewActivity.class);
 
-        clickBind(R.id.toChartsActivityBtn, ChartsActivity.class);
+        clickTo(R.id.toChartsActivityBtn, ChartsActivity.class);
 
-        clickBind(R.id.toDialogActivityBtn, DialogActivity.class);
+        clickTo(R.id.toDialogActivityBtn, DialogActivity.class);
+
+        clickTo(R.id.toCameraActivityBtn, CameraActivity.class);
 
     }
 

@@ -28,6 +28,7 @@ public class ExampleUnitTest {
 
     @Test
     public void test() {
+
         new Promise(() -> {
             return 99999;
         }).then(d -> {
@@ -179,5 +180,37 @@ public class ExampleUnitTest {
             });
         });
 
+    }
+
+    private String f1() {
+        return "ABC";
+    }
+
+    interface CallbackTest<T> {
+        T call();
+    }
+
+    class A implements CallbackTest {
+
+        @Override
+        public String call() {
+            return "CallbackTest";
+        }
+    }
+
+    class B extends A {
+
+    }
+
+    private A f2() {
+        return new B();
+    }
+
+    @Test
+    public void testAmbiguous() {
+        Promise.resolve(f1()).exist(d -> {
+            XLog.lg(d);
+        });
+        Promise.resolve(f2());
     }
 }

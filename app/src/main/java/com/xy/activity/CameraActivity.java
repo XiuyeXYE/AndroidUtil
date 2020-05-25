@@ -79,10 +79,10 @@ public class CameraActivity extends AbstractBaseActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        Promise.resolve(resultCode == RESULT_OK).andIf().then()
-                .orAndIf().then()
-                .orAndIf().and().and().and().then()
-                .other();
+//        Promise.resolve(resultCode == RESULT_OK).andIf().then()
+//                .orAndIf().then()
+//                .orAndIf().and().and().and().then()
+//                .other();
         if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
             Bundle extras = data.getExtras();
             Bitmap imageBitmap = XType.cast(extras.get("data"));

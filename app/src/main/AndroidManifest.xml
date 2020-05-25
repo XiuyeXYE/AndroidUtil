@@ -8,8 +8,9 @@
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
     <uses-permission android:name="android.permission.READ_CONTACTS" />
     <uses-permission
-        android:name="android.permission.WRITE_EXTERNAL_STORAGE"
-        android:maxSdkVersion="18" />
+        android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.CAMERA" />
+
     <!-- Tell the system this app requires OpenGL ES 3.0. -->
     <uses-feature
         android:glEsVersion="0x00020000"
@@ -72,9 +73,19 @@
         <activity android:name=".PhotoActivity" />
         <activity android:name=".ContentProviderActivity" />
 
+        <!--        <provider-->
+        <!--            android:name="android.support.v4.content.FileProvider"-->
+        <!--            android:authorities="com.example.android.fileprovider"-->
+        <!--            android:exported="false"-->
+        <!--            android:grantUriPermissions="true">-->
+        <!--            <meta-data-->
+        <!--                android:name="android.support.FILE_PROVIDER_PATHS"-->
+        <!--                android:resource="@xml/file_paths"></meta-data>-->
+        <!--        </provider>-->
+
         <provider
             android:name="androidx.core.content.FileProvider"
-            android:authorities="com.xiuye.fileprovider"
+            android:authorities="com.xy.fileprovider"
             android:exported="false"
             android:grantUriPermissions="true">
             <meta-data

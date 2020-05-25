@@ -2,6 +2,8 @@ package com.xy.util;
 
 import com.xiuye.util.cls.XType;
 
+import java.io.IOException;
+
 /**
  * Promise 设计纲要
  * 1.Promise 必须有 结果，即使计算过程中有异常错误，结果应该为null， 并传递给 下一个新的Promise，有 错误
@@ -34,6 +36,9 @@ public class Promise<RESULT> {
 
     // 异常必须处理后才能进行下一步
     private static boolean exIndeed = true;
+
+    public Promise() {
+    }
 
     /**
      * 直接传入结果的Promise 其实就相当于上一个结果传递给下一个！
@@ -398,48 +403,66 @@ public class Promise<RESULT> {
 
     // 传入都是空！所以随便返回什么类型
 
+    public boolean errorExist() {
+        return error != null;
+    }
+
     /**
+     * 有错误就执行，没有错误，就跳过
      * R call() 处理上一个Promise的错误！ 不接受上一个Promise的错误并返回新的Promise！
      *
      * @param callback lambda代码
-     * @param <R>      处理异常后返回的结果
      * @return 新的Promise对象
      */
-    public <R> Promise<R> except(ReturnCallbackNoParam<R> callback) {
-        return new Promise<>(errorHandler(() -> callback.rcv()), error);
+    public Promise<RESULT> except(ReturnCallbackNoParam<RESULT> callback) {
+        return errorExist()
+                ? new Promise<>(errorHandler(() -> callback.rcv()), error)
+                : new Promise<>(result, error);
+//        return new Promise<>(errorHandler(() -> callback.rcv()), error);
     }
 
     // input and return 都有；传入进去后，再次有error的话就传给下一个新的
 
     /**
+     * 有错误就执行，没有错误，就跳过
      * R call(I) 处理上一个Promise的错误！ 接受上一个Promise的错误并返回新的Promise！
      *
      * @param callback lambda代码
-     * @param <R>      处理异常后返回的结果
      * @return 新的Promise对象
      */
-    public <R> Promise<R> except(ReturnCallbackWithParam<R, Throwable> callback) {
-        return new Promise<>(errorHandler(() -> callback.rci(error)), error);
+    public Promise<RESULT> except(ReturnCallbackWithParam<RESULT, Throwable> callback) {
+        return errorExist()
+                ? new Promise<>(errorHandler(() -> callback.rci(error)), error)
+                : new Promise<>(result, error);
+//        return new Promise<>(errorHandler(() -> callback.rci(error)), error);
     }
 
     /**
+     * 有错误就执行，没有错误，就跳过
      * void call(I) 处理上一个Promise的错误！ 接受上一个Promise的错误并返回新的Promise！
      *
      * @param callback lambda代码
      * @return 新的Promise对象
      */
     public Promise<RESULT> except(VoidCallbackWithParam<Throwable> callback) {
-        return new Promise<>(errorHandler(() -> callback.vci(error)), error);
+        return errorExist()
+                ? new Promise<>(errorHandler(() -> callback.vci(error)), error)
+                : new Promise<>(result, error);
+//        return new Promise<>(errorHandler(() -> callback.vci(error)), error);
     }
 
     /**
+     * 有错误就执行，没有错误，就跳过
      * void call() 处理上一个Promise的错误！ 接受上一个Promise的错误并返回新的Promise！
      *
      * @param callback lambda代码
      * @return 新的Promise对象
      */
     public Promise<RESULT> except(VoidCallbackNoParam callback) {
-        return new Promise<>(errorHandler(() -> callback.vcv()), error);
+        return errorExist()
+                ? new Promise<>(errorHandler(() -> callback.vcv()), error)
+                : new Promise<>(result, error);
+//        return new Promise<>(errorHandler(() -> callback.vcv()), error);
     }
 
 //    public Promise<RESULT> exceptInherit(Promise<RESULT> pro){
@@ -508,6 +531,7 @@ public class Promise<RESULT> {
 
     /**
      * 捕获代码执行过程中的异常！ for except 的 异常处理代码
+     * 错误处理后返回正常值
      *
      * @param callback
      * @param <R>
@@ -547,6 +571,7 @@ public class Promise<RESULT> {
 
     //必须自己实现与其他类库无关的接口，哪怕是SDK 标准库
     //否则 将面临 传参 的 一些莫名其妙的错误！
+
     /**
      * R call (I)
      *
@@ -576,14 +601,14 @@ public class Promise<RESULT> {
      * @param <R>
      */
     public interface ReturnCallbackNoParam<R> {
-        R rcv();
+        R rcv() throws IOException;
     }
 
     public Throwable getError() {
         return error;
     }
 
-    public RESULT getResult() {
+    public RESULT get() {
         return result;
     }
 

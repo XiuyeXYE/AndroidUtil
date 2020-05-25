@@ -159,8 +159,8 @@ public class ExampleUnitTest {
 
         boolean e = XType.cast(o);
         XLog.lg(o instanceof Boolean, "cast:", e);
-        e = XType.cast(null);
-        XLog.lg("null value to boolean:", e);
+//        e = XType.cast(null);
+//        XLog.lg("null value to boolean:", e);
     }
 
     @Test
@@ -212,5 +212,39 @@ public class ExampleUnitTest {
             XLog.lg(d);
         });
         Promise.resolve(f2());
+
+    }
+
+    @Test
+    public void testNewAPI1() {
+        Promise.resolve(123).except(e -> {
+            e.printStackTrace();
+        }).then(d -> {
+            XLog.lg(d);
+        }).then(() -> {
+            throw new RuntimeException("Demo");
+        }).except(e -> {
+            XLog.lg("printTrace:");
+            e.printStackTrace();
+            return "ABC";
+        }).except(e -> {
+            XLog.lg("eeeeee");
+            return 567;
+        }).then(d -> {
+            XLog.lg(d);
+        });
+
+        Promise.resolve(123).then(d -> {
+            XLog.lg(d);
+            return d;
+        }).except(e -> {
+//            return "ABC";//error , muse be same type as the previous
+            return 111;
+        }).then(d -> {
+            XLog.lg(d);
+            return "ABC";
+        }).then(d -> {
+            XLog.lg(d);
+        });
     }
 }

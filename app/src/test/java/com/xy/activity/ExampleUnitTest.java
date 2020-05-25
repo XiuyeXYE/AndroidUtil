@@ -212,7 +212,10 @@ public class ExampleUnitTest {
             XLog.lg(d);
         });
         Promise.resolve(f2());
-
+        XLog.lg(null == null);
+        XLog.lg(Boolean.parseBoolean(null));
+        Boolean b = null;
+        XLog.lg(b);
     }
 
     @Test
@@ -245,6 +248,31 @@ public class ExampleUnitTest {
             return "ABC";
         }).then(d -> {
             XLog.lg(d);
+        });
+    }
+
+    @Test
+    public void testPromiseLogicAPI() {
+        Promise.resolve(true).not().then(d -> {
+            XLog.lg(256, d);
+//           return true;
+            return "ABC";//<=> true
+        }).and(true).then(d -> {
+
+            XLog.lg(261, d);
+        }).or(d -> {//previous is null <=> false,
+            // false && true,so don't execute code after &&
+            XLog.lg(263, d);
+            return d == null;
+        }).then(d -> {
+            XLog.lg(266, d);
+        });
+
+        Promise.resolve(true).and(true).truely(d -> {
+            XLog.lg("truely", d);
+        });
+        Promise.resolve(true).and(false).falsely(d -> {
+            XLog.lg("falsely", d);
         });
     }
 }

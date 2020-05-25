@@ -2,8 +2,6 @@ package com.xy.util;
 
 import com.xiuye.util.cls.XType;
 
-import java.io.IOException;
-
 /**
  * Promise 设计纲要
  * 1.Promise 必须有 结果，即使计算过程中有异常错误，结果应该为null， 并传递给 下一个新的Promise，有 错误
@@ -23,6 +21,8 @@ import java.io.IOException;
  * 10.this promise is only single thread
  * 11.result不仅是当前Promise计算的结果，
  * 更是传递给下一个的入参，其作用带有next属性
+ * 12.只满足就近匹配，前一个的Promise的计算结果是后一个
+ * Promise的传入值！十分重要。
  *
  * @param <RESULT> 结果类型
  */
@@ -78,6 +78,14 @@ public class Promise<RESULT> {
         catchExec(() -> result = callback.rcv());
     }
 
+    public Promise(ReturnCallbackNoParam<RESULT> callback, Throwable error) {
+//        catchExec(() -> result = callback.rcv());
+        this(callback);
+        error = error;
+//        this(catchExec(() ->callback.rcv()),error);
+    }
+
+
     /**
      * R call(I)
      *
@@ -89,6 +97,13 @@ public class Promise<RESULT> {
         catchExec(() -> result = callback.rci(in));
     }
 
+    public <INPUT> Promise(ReturnCallbackWithParam<RESULT, INPUT> callback, INPUT in, Throwable error) {
+//        catchExec(() -> result = callback.rci(in));
+        this(callback, in);
+        error = error;
+    }
+
+
     /**
      * void call(I)
      *
@@ -99,6 +114,14 @@ public class Promise<RESULT> {
         catchExec(() -> callback.vci(in));
     }
 
+    public Promise(VoidCallbackWithParam<RESULT> callback, RESULT in, Throwable error) {
+//        catchExec(() -> callback.vci(in));
+
+        this(callback, in);
+        error = error;
+
+    }
+
     /**
      * void call()
      *
@@ -106,6 +129,12 @@ public class Promise<RESULT> {
      */
     public Promise(VoidCallbackNoParam callback) {
         catchExec(() -> callback.vcv());
+    }
+
+    public Promise(VoidCallbackNoParam callback, Throwable error) {
+//        catchExec(() -> callback.vcv());
+        this(callback);
+        error = error;
     }
 
 
@@ -289,10 +318,25 @@ public class Promise<RESULT> {
      */
     public boolean truely() {
         boolean b = false;
-        if (exist() && result instanceof Boolean) {
-            b = XType.cast(result);
+        if (exist()) {
+            b = true;
+            if (result instanceof Boolean) {
+                b = XType.cast(result);
+            }
         }
-        return false;
+        return b;
+    }
+
+    private <I> boolean parseBoolean(I t) {
+        if (t == null) {
+            return false;
+        } else {
+            boolean b = true;
+            if (t instanceof Boolean) {
+                b = XType.cast(t);
+            }
+            return b;
+        }
     }
 
     /**
@@ -389,6 +433,84 @@ public class Promise<RESULT> {
      */
     public Promise<RESULT> falsely(VoidCallbackNoParam callback) {
         return !truely() ? then(callback) : new Promise<>(error);
+    }
+
+
+    //extension API
+    //没有优先级额！ 因为方便实现,就用就近原则吧！
+    public Promise<Boolean> and(boolean flag) {
+        return resolve(truely() && flag, error);
+    }
+
+
+    public Promise<Boolean> and(ReturnCallbackNoParam<Boolean> callback) {
+//        return !truely() ? then(callback) : new Promise<>(error);
+        return resolve(truely() && parseBoolean(catchExec(() -> callback.rcv())), error);
+    }
+
+
+    public Promise<Boolean> and(ReturnCallbackWithParam<Boolean, RESULT> callback) {
+//        return !truely() ? then(callback) : new Promise<>(error);
+//        return resolve(callback,result,error);
+        return resolve(truely() && parseBoolean(catchExec(() -> callback.rci(result))), error);
+    }
+
+
+    public Promise<Boolean> and(VoidCallbackWithParam<RESULT> callback) {
+////        return !truely() ? then(callback) : new Promise<>(error);
+        return resolve(truely() && parseBoolean(catchExec(() -> callback.vci(result))), error);
+    }
+
+
+    public Promise<Boolean> and(VoidCallbackNoParam callback) {
+//        return !truely() ? then(callback) : new Promise<>(error);
+        return resolve(truely() && parseBoolean(catchExec(() -> callback.vcv())), error);
+    }
+
+
+    public Promise<Boolean> or(boolean flag) {
+        return resolve(truely() || flag, error);
+    }
+
+    public Promise<Boolean> or(ReturnCallbackNoParam<Boolean> callback) {
+        return resolve(truely() || parseBoolean(catchExec(() -> callback.rcv())), error);
+    }
+
+
+    public Promise<Boolean> or(ReturnCallbackWithParam<Boolean, RESULT> callback) {
+        return resolve(truely() || parseBoolean(catchExec(() -> callback.rci(result))), error);
+    }
+
+
+    public Promise<Boolean> or(VoidCallbackWithParam<RESULT> callback) {
+        return resolve(truely() || parseBoolean(catchExec(() -> callback.vci(result))), error);
+    }
+
+
+    public Promise<Boolean> or(VoidCallbackNoParam callback) {
+        return resolve(truely() || parseBoolean(catchExec(() -> callback.vcv())), error);
+    }
+
+    public Promise<Boolean> not() {
+        return resolve(!truely(), error);
+    }
+
+    public Promise<Boolean> not(ReturnCallbackNoParam<Boolean> callback) {
+        return resolve(!parseBoolean(catchExec(() -> callback.rcv())), error);
+    }
+
+
+    public Promise<Boolean> not(ReturnCallbackWithParam<Boolean, RESULT> callback) {
+        return resolve(!parseBoolean(catchExec(() -> callback.rci(result))), error);
+    }
+
+
+    public Promise<Boolean> not(VoidCallbackWithParam<RESULT> callback) {
+        return resolve(!parseBoolean(catchExec(() -> callback.vci(result))), error);
+    }
+
+    public Promise<Boolean> not(VoidCallbackNoParam callback) {
+        return resolve(!parseBoolean(catchExec(() -> callback.vcv())), error);
     }
 
 //    private <R> Promise<R> thenInherit(Promise<R> pro){
@@ -601,7 +723,7 @@ public class Promise<RESULT> {
      * @param <R>
      */
     public interface ReturnCallbackNoParam<R> {
-        R rcv() throws IOException;
+        R rcv();
     }
 
     public Throwable getError() {
@@ -616,6 +738,18 @@ public class Promise<RESULT> {
         exIndeed = !implicit;
     }
 
+
+//    public void ef(){
+//
+//    }
+//    public void eese(){
+//
+//    }
+//    public void eeseEf(){
+//
+//    }
+
+
     /**
      * give value promise
      *
@@ -625,6 +759,10 @@ public class Promise<RESULT> {
      */
     public static <R> Promise<R> resolve(R r) {
         return new Promise<>(r);
+    }
+
+    private static <R> Promise<R> resolve(R r, Throwable error) {
+        return new Promise<>(r, error);
     }
 
     /**
@@ -638,8 +776,16 @@ public class Promise<RESULT> {
         return new Promise<>(callback);
     }
 
+    public static <R> Promise<R> resolve(ReturnCallbackNoParam<R> callback, Throwable error) {
+        return new Promise<>(callback, error);
+    }
+
     public static <R, I> Promise<R> resolve(ReturnCallbackWithParam<R, I> callback, I rlt) {
         return new Promise<>(callback, rlt);
+    }
+
+    public static <R, I> Promise<R> resolve(ReturnCallbackWithParam<R, I> callback, I rlt, Throwable error) {
+        return new Promise<>(callback, rlt, error);
     }
 
     // 没有返回类型的,（相当于）继承了RESULT 类型！
@@ -648,8 +794,16 @@ public class Promise<RESULT> {
         return new Promise<>(callback, rlt);
     }
 
+    public static <R> Promise<R> resolve(VoidCallbackWithParam<R> callback, R rlt, Throwable error) {
+        return new Promise<>(callback, rlt, error);
+    }
+
     public static Promise resolve(VoidCallbackNoParam callback) {
         return new Promise(callback);
+    }
+
+    public static Promise resolve(VoidCallbackNoParam callback, Throwable error) {
+        return new Promise(callback, error);
     }
 
 
@@ -662,4 +816,21 @@ public class Promise<RESULT> {
     public static <R extends Throwable> Promise reject(R e) {
         return new Promise<>(e);
     }
+
+//    public <I> Promise<Boolean> as(I t){
+//        boolean b = false;
+//        if(exist() && t != null && result.equals(t)){
+//            b = true;
+//        }
+//        else if(!exist() && t == null){
+//            b = false;
+//        }
+//        return resolve(b);
+//    }
+//
+//    public Promise<RESULT> match(RESULT d){
+//        return resolve(d);
+//    }
+
+
 }

@@ -15,6 +15,7 @@ import com.xy.util.Promise;
 import com.xy.util.UIUtil;
 
 import java.io.File;
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -83,13 +84,19 @@ public class CameraActivity extends AbstractBaseActivity {
 //                .orAndIf().then()
 //                .orAndIf().and().and().and().then()
 //                .other();
-        if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
+        if (requestCode == REQUEST_TAKE_PHOTO && resultCode == RESULT_OK) {
             Bundle extras = data.getExtras();
             Bitmap imageBitmap = XType.cast(extras.get("data"));
             photoImageView.setImageBitmap(imageBitmap);
         } else if (requestCode == REQUEST_TAKE_PHOTO && resultCode == RESULT_OK) {
             UIUtil.log(data.getExtras());
         }
+        Promise.resolve(requestCode == REQUEST_IMAGE_CAPTURE).and(resultCode == RESULT_OK).truely(() -> {
+            Bundle extras = data.getExtras();
+            Bitmap imageBitmap = XType.cast(extras.get("data"));
+            photoImageView.setImageBitmap(imageBitmap);
+        });
+
     }
 
     String currentPhotoPath;
@@ -100,11 +107,16 @@ public class CameraActivity extends AbstractBaseActivity {
             String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
             String imageFileName = "JPEG_" + timeStamp + "_";
             File storageDir = getExternalFilesDir(Environment.DIRECTORY_PICTURES);
-            File image = File.createTempFile(
-                    imageFileName,  /* prefix */
-                    ".jpg",         /* suffix */
-                    storageDir      /* directory */
-            );
+            File image = null;
+            try {
+                image = File.createTempFile(
+                        imageFileName,  /* prefix */
+                        ".jpg",         /* suffix */
+                        storageDir      /* directory */
+                );
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
 
 
             // Save a file: path for use with ACTION_VIEW intents

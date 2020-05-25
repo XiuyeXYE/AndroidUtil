@@ -80,49 +80,51 @@ public class CameraActivity extends AbstractBaseActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-//        Promise.resolve(resultCode == RESULT_OK).andIf().then()
-//                .orAndIf().then()
-//                .orAndIf().and().and().and().then()
-//                .other();
-        if (requestCode == REQUEST_TAKE_PHOTO && resultCode == RESULT_OK) {
-            Bundle extras = data.getExtras();
-            Bitmap imageBitmap = XType.cast(extras.get("data"));
-            photoImageView.setImageBitmap(imageBitmap);
-        } else if (requestCode == REQUEST_TAKE_PHOTO && resultCode == RESULT_OK) {
-            UIUtil.log(data.getExtras());
-        }
-        Promise.resolve(requestCode == REQUEST_IMAGE_CAPTURE).and(resultCode == RESULT_OK).truely(() -> {
+
+//        if (requestCode == REQUEST_TAKE_PHOTO && resultCode == RESULT_OK) {
+//            Bundle extras = data.getExtras();
+//            Bitmap imageBitmap = XType.cast(extras.get("data"));
+//            photoImageView.setImageBitmap(imageBitmap);
+//        } else if (requestCode == REQUEST_TAKE_PHOTO && resultCode == RESULT_OK) {
+//            UIUtil.log(data.getExtras());
+//        }
+        Promise.resolve(resultCode == RESULT_OK).and(requestCode == REQUEST_IMAGE_CAPTURE).truely(() -> {
             Bundle extras = data.getExtras();
             Bitmap imageBitmap = XType.cast(extras.get("data"));
             photoImageView.setImageBitmap(imageBitmap);
         });
+
+        Promise.resolve(resultCode == RESULT_OK).and(requestCode == REQUEST_TAKE_PHOTO).truely(d -> {
+            UIUtil.log(data.getExtras(), d);
+        });
+//                Promise.resolve(resultCode == RESULT_OK).andIf().then()
+//                .orAndIf().then()
+//                .orAndIf().and().and().and().then()
+//                .other();
 
     }
 
     String currentPhotoPath;
 
     private File createImageFile() {
-        return Promise.resolve(() -> {
-            // Create an image file name
-            String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
-            String imageFileName = "JPEG_" + timeStamp + "_";
-            File storageDir = getExternalFilesDir(Environment.DIRECTORY_PICTURES);
-            File image = null;
-            try {
-                image = File.createTempFile(
-                        imageFileName,  /* prefix */
-                        ".jpg",         /* suffix */
-                        storageDir      /* directory */
-                );
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
+        String imageFileName = "JPEG_" + timeStamp + "_";
+        File storageDir = getExternalFilesDir(Environment.DIRECTORY_PICTURES);
+        File image = null;
+        try {
+            image = File.createTempFile(
+                    imageFileName,  /* prefix */
+                    ".jpg",         /* suffix */
+                    storageDir      /* directory */
+            );
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
 
-            // Save a file: path for use with ACTION_VIEW intents
-            currentPhotoPath = image.getAbsolutePath();
+        // Save a file: path for use with ACTION_VIEW intents
+        currentPhotoPath = image.getAbsolutePath();
 //            UIUtil.log(this,storageDir,image,currentPhotoPath);
-            return image;
-        }).get();
+        return image;
     }
 }

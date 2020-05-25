@@ -29,9 +29,7 @@ public class ExampleUnitTest {
     @Test
     public void test() {
 
-        new Promise(() -> {
-            return 99999;
-        }).then(d -> {
+        new Promise(99999).then(d -> {
             XLog.lg(d);
             XLog.lg("void call(I in)");
 
@@ -68,18 +66,18 @@ public class ExampleUnitTest {
         }).except(() -> {
             XLog.lg("handle exception 8");
         });
-        new Promise<String>(() -> {
-            XLog.lg("right now execute immediately!");
-        });
-        new Promise<String>((d) -> {
-            XLog.lg("right now execute immediately!", d);
-        }, "ABC");
-        new Promise<String>((d) -> {
-            XLog.lg("right now execute immediately!", d);
-            return d;
-        }, "ABC").then((d) -> {
-            XLog.lg(d);
-        });
+//        new Promise<String>(() -> {
+//            XLog.lg("right now execute immediately!");
+//        });
+//        new Promise<String>((d) -> {
+//            XLog.lg("right now execute immediately!", d);
+//        }, "ABC");
+//        new Promise<String>((d) -> {
+//            XLog.lg("right now execute immediately!", d);
+//            return d;
+//        }, "ABC").then((d) -> {
+//            XLog.lg(d);
+//        });
     }
 
     @Test
@@ -103,23 +101,23 @@ public class ExampleUnitTest {
 
     }
 
-    Promise<Integer> pro = new Promise<>(() -> 100);
+//    Promise<Integer> pro = new Promise<>(() -> 100);
 
     @Test
     public void multiThreads() throws InterruptedException {
 
         Thread t1 = new Thread(() -> {
-            pro = pro.then((d) -> {
-                XLog.lg(d);
-//                for(;;){}
-                return 101;
-            });
+//            pro = pro.then((d) -> {
+//                XLog.lg(d);
+////                for(;;){}
+//                return 101;
+//            });
         });
         Thread t2 = new Thread(() -> {
-            pro = pro.then((d) -> {
-                XLog.lg(d);
-                return 102;
-            });
+//            pro = pro.then((d) -> {
+//                XLog.lg(d);
+//                return 102;
+//            });
         });
         t1.start();
         t1.join();
@@ -130,18 +128,18 @@ public class ExampleUnitTest {
             int j = i;
             //java thread every not deamon will all be called!
             Thread t = new Thread(() -> {
-                pro = pro.then((d) -> {
-                    XLog.lg(d);
-                    return j;
-                });
+//                pro = pro.then((d) -> {
+//                    XLog.lg(d);
+//                    return j;
+//                });
             });
             t.start();
 //            t.join();// will be ordered!
 //            XLog.lg("join:",i);
         }
-        pro.then((d) -> {
-            XLog.lg("end", d);
-        });
+//        pro.then((d) -> {
+//            XLog.lg("end", d);
+//        });
 
     }
 
@@ -274,5 +272,36 @@ public class ExampleUnitTest {
         Promise.resolve(true).and(false).falsely(d -> {
             XLog.lg("falsely", d);
         });
+    }
+
+    @Test
+    public void testPromiseIfElse() {
+        Promise.resolve(true).truely(d -> {
+            XLog.lg(d);
+        });
+//        .ef(true).truely(d->{
+//            XLog.lg(d);
+//        });
+        if (true) {
+            XLog.lg("if:", true);
+        } else if (true) {
+            XLog.lg("else if:", true);
+        }
+
+        Runnable r = () -> {
+        };
+
+        Object o = r;
+        XLog.lg(null instanceof Object);
+        XLog.lg(null instanceof String);
+    }
+
+    @Test
+    public void testIfElse() {
+        Promise.resolve(123).begin().ef(false).thenDo(d -> {
+            XLog.lg("ef do");
+        }).eeseEf(true).thenDo(() -> {
+            XLog.lg("else if do");
+        }).end();
     }
 }

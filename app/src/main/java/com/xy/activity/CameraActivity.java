@@ -88,15 +88,26 @@ public class CameraActivity extends AbstractBaseActivity {
 //        } else if (requestCode == REQUEST_TAKE_PHOTO && resultCode == RESULT_OK) {
 //            UIUtil.log(data.getExtras());
 //        }
-        Promise.resolve(resultCode == RESULT_OK).and(requestCode == REQUEST_IMAGE_CAPTURE).truely(() -> {
-            Bundle extras = data.getExtras();
-            Bitmap imageBitmap = XType.cast(extras.get("data"));
-            photoImageView.setImageBitmap(imageBitmap);
+
+        Promise.resolve(resultCode == RESULT_OK).truely(() -> {
+            Promise.resolve().begin().ef(requestCode == REQUEST_TAKE_PHOTO).thenDo(() -> {
+                Bundle extras = data.getExtras();
+                Bitmap imageBitmap = XType.cast(extras.get("data"));
+                photoImageView.setImageBitmap(imageBitmap);
+            }).eeseEf(requestCode == REQUEST_TAKE_PHOTO).thenDo(() -> {
+                UIUtil.log(data.getExtras());
+            }).end();
         });
 
-        Promise.resolve(resultCode == RESULT_OK).and(requestCode == REQUEST_TAKE_PHOTO).truely(d -> {
-            UIUtil.log(data.getExtras(), d);
-        });
+//        Promise.resolve(resultCode == RESULT_OK).and(requestCode == REQUEST_IMAGE_CAPTURE).truely(() -> {
+//            Bundle extras = data.getExtras();
+//            Bitmap imageBitmap = XType.cast(extras.get("data"));
+//            photoImageView.setImageBitmap(imageBitmap);
+//        });
+//
+//        Promise.resolve(resultCode == RESULT_OK).and(requestCode == REQUEST_TAKE_PHOTO).truely(d -> {
+//            UIUtil.log(data.getExtras(), d);
+//        });
 //                Promise.resolve(resultCode == RESULT_OK).andIf().then()
 //                .orAndIf().then()
 //                .orAndIf().and().and().and().then()

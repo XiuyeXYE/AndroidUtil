@@ -752,6 +752,10 @@ public class Promise<RESULT> {
     }
 
 
+    public static <R> Promise<R> resolve() {
+        return new Promise<>();
+    }
+
     /**
      * give value promise
      *
@@ -931,7 +935,7 @@ public class Promise<RESULT> {
                     tuple = tokens.get(i);
                     if (IF.equals(tuple.token) || ELSE_IF.equals(tuple.token)) {
                         if (i + 1 >= tokens.size()) {
-                            throw new RuntimeException("not match if.elseif.else or if.else;after ef()/eeseEf() it's thenDo(),like ef().thenDo().elseEf()/thenDo()");
+                            throw new RuntimeException("not match if.elseif.else or if.else;after ef()/eeseEf() it's thenDo(),like ef().thenDo().elseEf().thenDo()");
                         }
                         TwoTuple<Object> nextToken = tokens.get(i + 1);
                         if (THEN.equals(nextToken.token)) {

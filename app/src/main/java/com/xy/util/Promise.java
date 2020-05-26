@@ -825,6 +825,7 @@ public class Promise<RESULT> {
 
 
     // ================= programming ================
+
     private static final String IF = "if";
     private static final String ELSE_IF = "else if";
     private static final String ELSE = "else";
@@ -843,6 +844,9 @@ public class Promise<RESULT> {
     }
 
     private Promise programPromise(List<TwoTuple<Object>> tokens) {
+        if (tokens == null) {
+            throw new RuntimeException("please use begin() to start using promise in ef/eeseEf/else/thenDo !");
+        }
         return new Promise(tokens);
     }
 
@@ -850,6 +854,16 @@ public class Promise<RESULT> {
         return programPromise(XType.list());
     }
 
+    /**
+     * syntax :
+     * S -> if .then .T
+     * T -> else if .then .T | else |ε
+     * . 分隔词组
+     *
+     * @param t
+     * @param <I>
+     * @return
+     */
     public <I> Promise ef(I t) {
         tokens.add(new TwoTuple<>(IF, t));
         return programPromise(tokens);

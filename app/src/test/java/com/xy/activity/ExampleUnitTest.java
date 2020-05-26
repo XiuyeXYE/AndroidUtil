@@ -304,7 +304,6 @@ public class ExampleUnitTest {
             XLog.lg("else if do");
         }).end().then(() -> {
             XLog.lg("end");
-        });
-//                .begin().ef(false).ef(true).end();
+        }).begin().ef(false).ef(true).end();
     }
 }

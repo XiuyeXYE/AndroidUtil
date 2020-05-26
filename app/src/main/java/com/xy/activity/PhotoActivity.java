@@ -52,7 +52,7 @@ public class PhotoActivity extends AppCompatActivity {
                 e.printStackTrace();
             }
             if (Build.VERSION.SDK_INT >= 24) {
-                imageUri = FileProvider.getUriForFile(this, "com.xiuye.fileprovider", outputImg);
+                imageUri = FileProvider.getUriForFile(this, "com.xy.fileprovider", outputImg);
             } else {
                 imageUri = Uri.fromFile(outputImg);
             }

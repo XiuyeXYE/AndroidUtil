@@ -2,6 +2,7 @@ package com.xy.activity;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -88,14 +89,20 @@ public class CameraActivity extends AbstractBaseActivity {
 //        } else if (requestCode == REQUEST_TAKE_PHOTO && resultCode == RESULT_OK) {
 //            UIUtil.log(data.getExtras());
 //        }
-
+//        UIUtil.log(this,currentPhotoPath);
         Promise.resolve(resultCode == RESULT_OK).truely(() -> {
-            Promise.resolve().begin().ef(requestCode == REQUEST_TAKE_PHOTO).thenDo(() -> {
+            Promise.resolve().begin().ef(requestCode == REQUEST_IMAGE_CAPTURE).thenDo(() -> {
                 Bundle extras = data.getExtras();
                 Bitmap imageBitmap = XType.cast(extras.get("data"));
                 photoImageView.setImageBitmap(imageBitmap);
             }).eeseEf(requestCode == REQUEST_TAKE_PHOTO).thenDo(() -> {
-                UIUtil.log(data.getExtras());
+                Promise.resolve(currentPhotoPath).exist(d -> {
+                    return BitmapFactory.decodeFile(d);
+                }).exist(bitmap -> {
+                    photoImageView.setImageBitmap(bitmap);
+                }).except(e -> {
+                    UIUtil.log(this, e);
+                });
             }).end();
         });
 

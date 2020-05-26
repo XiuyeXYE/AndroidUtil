@@ -15,7 +15,7 @@ public class ContentProviderActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_content_provider);
         findViewById(R.id.myContentProviderBtn).setOnClickListener(v -> {
-            Uri authority = Uri.parse("content://com.xiuye.provider");
+            Uri authority = Uri.parse("content://com.xy.provider");
             Cursor cursor = this.getContentResolver().query(authority, null, null, null, null);
             UIUtil.log(cursor);
 //            UIUtil.log(client.getLocalContentProvider());

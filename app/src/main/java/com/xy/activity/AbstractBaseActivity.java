@@ -6,8 +6,8 @@ import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.xiuye.sharp.Promise;
 import com.xiuye.util.cls.XType;
-import com.xy.util.Promise;
 
 public abstract class AbstractBaseActivity extends AppCompatActivity {
 

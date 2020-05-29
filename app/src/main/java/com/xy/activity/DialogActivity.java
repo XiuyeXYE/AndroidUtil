@@ -4,7 +4,7 @@ import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.xy.util.Promise;
+import com.xiuye.sharp.Promise;
 import com.xy.util.UIUtil;
 
 public class DialogActivity extends AppCompatActivity {

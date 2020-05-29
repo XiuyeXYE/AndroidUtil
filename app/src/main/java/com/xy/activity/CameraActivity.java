@@ -11,8 +11,8 @@ import android.widget.ImageView;
 
 import androidx.core.content.FileProvider;
 
+import com.xiuye.sharp.Promise;
 import com.xiuye.util.cls.XType;
-import com.xy.util.Promise;
 import com.xy.util.UIUtil;
 
 import java.io.File;

@@ -14,7 +14,7 @@ import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 
 import com.xiuye.util.cls.XType;
-import com.xiuye.util.code.XYClassLoader;
+import com.xiuye.util.cls.XYClassLoader;
 import com.xiuye.util.code.XYCompiler;
 import com.xy.activity.ui.login.LoginActivity;
 import com.xy.itf.ADemo;

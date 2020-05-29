@@ -1,9 +1,9 @@
 package com.xy.activity;
 
+import com.xiuye.sharp.Promise;
 import com.xiuye.util.cls.XType;
 import com.xiuye.util.code.XCode;
 import com.xiuye.util.log.XLog;
-import com.xy.util.Promise;
 
 import org.junit.Test;
 

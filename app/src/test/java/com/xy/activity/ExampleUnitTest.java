@@ -298,12 +298,16 @@ public class ExampleUnitTest {
 
     @Test
     public void testIfElse() {
-        Promise.resolve().begin().ef(true).thenDo(d -> {
+        Promise.resolve("ABC").begin().ef(true).then(() -> {
             XLog.lg("ef do");
-        }).eeseEf(true).thenDo(() -> {
+        }).eeseEf(true).then(() -> {
             XLog.lg("else if do");
-        }).end().then(() -> {
-            XLog.lg("end");
-        }).begin().ef(false).ef(true).end();
+        }).end().then(d -> {
+            XLog.lg("end", d);
+        }).begin().ef(true).then(() -> {
+
+        }).end().then(d -> {
+            XLog.lg(d);
+        });
     }
 }

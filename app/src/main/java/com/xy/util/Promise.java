@@ -2,7 +2,6 @@ package com.xy.util;
 
 import com.xiuye.util.cls.XType;
 
-import java.util.List;
 
 /**
  * Promise 设计纲要
@@ -25,7 +24,7 @@ import java.util.List;
  * 更是传递给下一个的入参，其作用带有next属性
  * 12.只满足就近匹配，前一个的Promise的计算结果是后一个
  * Promise的传入值！十分重要。
- *
+ * 13.添加分支结构！
  * @param <RESULT> 结果类型
  */
 public class Promise<RESULT> {
@@ -515,16 +514,6 @@ public class Promise<RESULT> {
         return resolve(!parseBoolean(catchExec(() -> callback.vcv())), error);
     }
 
-    class TwoTuple<T> {
-        public String token;
-        public T value;
-
-        private TwoTuple(String token, T t) {
-            this.token = token;
-            this.value = t;
-        }
-    }
-
 
 //    private <R> Promise<R> thenInherit(Promise<R> pro){
 //        if(pro.error == null && error != null){
@@ -550,10 +539,11 @@ public class Promise<RESULT> {
      * @return 新的Promise对象
      */
     public Promise<RESULT> except(ReturnCallbackNoParam<RESULT> callback) {
-        return errorExist()
-                ? new Promise<>(errorHandler(() -> callback.rcv()), error)
-                : new Promise<>(result, error);
+//        return errorExist()
+//                ? new Promise<>(errorHandler(() -> callback.rcv()), error)
+//                : new Promise<>(result, error);
 //        return new Promise<>(errorHandler(() -> callback.rcv()), error);
+        return resolve(errorExist() ? errorHandler(() -> callback.rcv()) : result, error);
     }
 
     // input and return 都有；传入进去后，再次有error的话就传给下一个新的
@@ -566,10 +556,11 @@ public class Promise<RESULT> {
      * @return 新的Promise对象
      */
     public Promise<RESULT> except(ReturnCallbackWithParam<RESULT, Throwable> callback) {
-        return errorExist()
-                ? new Promise<>(errorHandler(() -> callback.rci(error)), error)
-                : new Promise<>(result, error);
+//        return errorExist()
+//                ? new Promise<>(errorHandler(() -> callback.rci(error)), error)
+//                : new Promise<>(result, error);
 //        return new Promise<>(errorHandler(() -> callback.rci(error)), error);
+        return resolve(errorExist() ? errorHandler(() -> callback.rci(error)) : result, error);
     }
 
     /**
@@ -580,10 +571,11 @@ public class Promise<RESULT> {
      * @return 新的Promise对象
      */
     public Promise<RESULT> except(VoidCallbackWithParam<Throwable> callback) {
-        return errorExist()
-                ? new Promise<>(errorHandler(() -> callback.vci(error)), error)
-                : new Promise<>(result, error);
+//        return errorExist()
+//                ? new Promise<>(errorHandler(() -> callback.vci(error)), error)
+//                : new Promise<>(result, error);
 //        return new Promise<>(errorHandler(() -> callback.vci(error)), error);
+        return resolve(errorExist() ? errorHandler(() -> callback.vci(error)) : result, error);
     }
 
     /**
@@ -594,10 +586,12 @@ public class Promise<RESULT> {
      * @return 新的Promise对象
      */
     public Promise<RESULT> except(VoidCallbackNoParam callback) {
-        return errorExist()
-                ? new Promise<>(errorHandler(() -> callback.vcv()), error)
-                : new Promise<>(result, error);
+//        return errorExist()
+//                ? resolve(errorHandler(() -> callback.vcv()), error)
+//                : resolve(result, error);
+              
 //        return new Promise<>(errorHandler(() -> callback.vcv()), error);
+        return resolve(errorExist() ? errorHandler(() -> callback.vcv()) : result, error);
     }
 
 //    public Promise<RESULT> exceptInherit(Promise<RESULT> pro){
@@ -767,7 +761,7 @@ public class Promise<RESULT> {
         return new Promise<>(r);
     }
 
-    private static <R> Promise<R> resolve(R r, Throwable error) {
+    private static <R, E extends Throwable> Promise<R> resolve(R r, E error) {
         return new Promise<>(r, error);
     }
 
@@ -819,165 +813,30 @@ public class Promise<RESULT> {
      * @param e
      * @return
      */
-    public static <R extends Throwable> Promise reject(R e) {
+    public static <R extends Throwable> Promise<R> reject(R e) {
         return new Promise<>(e);
     }
 
-
-    // ================= programming ================
-
-    private static final String IF = "if";
-    private static final String ELSE_IF = "else if";
-    private static final String ELSE = "else";
-    private static final String THEN = "then";
-
-
-    private List<TwoTuple<Object>> tokens;
-
-    private Promise(List<TwoTuple<Object>> tokens) {
-        this.tokens = tokens;
+    public static <R> Promise<R> of() {
+        return resolve();
     }
 
-    private Promise(List<TwoTuple<Object>> tokens, Throwable error) {
-        this.tokens = tokens;
-        this.error = error;
+    public static <R> Promise<R> of(R t) {
+        return resolve(t);
     }
 
-    private Promise programPromise(List<TwoTuple<Object>> tokens) {
-        if (tokens == null) {
-            throw new RuntimeException("please use begin() to start using promise in ef/eeseEf/else/thenDo !");
-        }
-        return new Promise(tokens);
-    }
-
-    public Promise begin() {
-        return programPromise(XType.list());
-    }
-
-    /**
-     * syntax :
-     * S -> if .then .T
-     * T -> else if .then .T | else |ε
-     * . 分隔词组
-     *
-     * @param t
-     * @param <I>
-     * @return
-     */
-    public <I> Promise ef(I t) {
-        tokens.add(new TwoTuple<>(IF, t));
-        return programPromise(tokens);
-    }
-
-    public <I> Promise eeseEf(I t) {
-        tokens.add(new TwoTuple<>(ELSE_IF, t));
-        return programPromise(tokens);
+    public static <R, E extends Throwable> Promise<R> of(R r, E error) {
+        return resolve(r, error);
     }
 
 
-    public <R> Promise<R> thenDo(ReturnCallbackNoParam<R> callback) {
-        tokens.add(new TwoTuple<>(THEN, callback));
-        return programPromise(tokens);
+    public ProgramPromise<RESULT> begin() {
+        return new ProgramPromise<>(result, error);
     }
 
-    public <R> Promise<R> thenDo(ReturnCallbackWithParam<R, RESULT> callback) {
-        tokens.add(new TwoTuple<>(THEN, callback));
-        return programPromise(tokens);
+    public static <R> ProgramPromise<R> beginS() {
+        return new ProgramPromise<>();
     }
-
-    public Promise<RESULT> thenDo(VoidCallbackWithParam<RESULT> callback) {
-        tokens.add(new TwoTuple<>(THEN, callback));
-        return programPromise(tokens);
-    }
-
-    public Promise<RESULT> thenDo(VoidCallbackNoParam callback) {
-        tokens.add(new TwoTuple<>(THEN, callback));
-        return programPromise(tokens);
-    }
-
-
-    public <R> Promise<R> eese(ReturnCallbackNoParam<R> callback) {
-        tokens.add(new TwoTuple<>(ELSE, callback));
-        return programPromise(tokens);
-    }
-
-    public <R> Promise<R> eese(ReturnCallbackWithParam<R, RESULT> callback) {
-        tokens.add(new TwoTuple<>(ELSE, callback));
-        return programPromise(tokens);
-    }
-
-    public Promise<RESULT> eese(VoidCallbackWithParam<RESULT> callback) {
-        tokens.add(new TwoTuple<>(ELSE, callback));
-        return programPromise(tokens);
-    }
-
-    public Promise<RESULT> eese(VoidCallbackNoParam callback) {
-        tokens.add(new TwoTuple<>(ELSE, callback));
-        return programPromise(tokens);
-    }
-
-    private <R> R whatCallback(TwoTuple<Object> token, Object value) {
-        R r = null;
-        if (token.value instanceof VoidCallbackNoParam) {
-            VoidCallbackNoParam callback = XType.cast(token.value);
-            callback.vcv();
-        } else if (token.value instanceof ReturnCallbackWithParam) {
-            ReturnCallbackWithParam<R, RESULT> callback = XType.cast(token.value);
-            r = callback.rci(XType.cast(value));
-        } else if (token.value instanceof ReturnCallbackNoParam) {
-            ReturnCallbackNoParam<R> callback = XType.cast(token.value);
-            r = callback.rcv();
-        } else if (token.value instanceof VoidCallbackWithParam) {
-            VoidCallbackWithParam<RESULT> callback = XType.cast(token.value);
-            callback.vci(XType.cast(value));
-        }
-
-        return r;
-    }
-
-    //不支持 if else 嵌套！
-    private <R> R analyzeTokensAndExec() {
-        R r = null;
-        if (tokens != null) {
-            if (!tokens.isEmpty()) {
-                TwoTuple<Object> tuple = tokens.get(0);
-                //check first parameter,must start with if / match
-                if (!IF.equals(tuple.token)) {
-                    throw new RuntimeException("please use structure begin().ef().thenDo().elseEf().thenDo().else().end()！");
-                }
-                for (int i = 0; tokens != null && i < tokens.size(); i++) {
-                    tuple = tokens.get(i);
-                    if (IF.equals(tuple.token) || ELSE_IF.equals(tuple.token)) {
-                        if (i + 1 >= tokens.size()) {
-                            throw new RuntimeException("not match if.elseif.else or if.else;after ef()/eeseEf() it's thenDo(),like ef().thenDo().elseEf().thenDo()");
-                        }
-                        TwoTuple<Object> nextToken = tokens.get(i + 1);
-                        if (THEN.equals(nextToken.token)) {
-                            if (parseBoolean(tuple.value)) {
-                                r = whatCallback(nextToken, tuple.value);
-                                break;//因为是 if else 只执行一个！
-                            }
-                        }
-                    }
-                }
-            }
-        }
-        return r;
-    }
-
-
-    public <R> Promise<R> end() {
-
-        R r = analyzeTokensAndExec();
-//        clear tokens!
-        tokens = null;
-        return new Promise<>(r);
-    }
-
-
-//    public <I> Promise<Boolean> eese(I t){
-//        return resolve(parseBoolean(t));
-//    }
 
 
 }

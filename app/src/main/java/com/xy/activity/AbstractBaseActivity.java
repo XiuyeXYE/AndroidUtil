@@ -33,9 +33,11 @@ public abstract class AbstractBaseActivity extends AppCompatActivity {
 //        findViewById(id).setOnClickListener(v -> {
 //            to(clazz);
 //        });
-        byId(id).exist(v -> {
-            v.setOnClickListener(vi -> to(clazz));
-        });
+//        byId(id).exist(v -> {
+//            v.setOnClickListener(vi -> to(clazz));
+//        });
+
+        clickBind(id, vi -> to(clazz));
     }
 
     public void clickBind(int id) {
@@ -63,8 +65,8 @@ public abstract class AbstractBaseActivity extends AppCompatActivity {
         //确实，经过验证，返回类型是泛型的话，会有类型不确定，
         // 出现一些莫名其妙的问题！
         // 解决办法就是分步变量传入！
-        R r = findViewById(id);
-        return Promise.resolve(r);
+//        R r = findViewById(id);
+        return Promise.resolve(findViewById(id));
     }
 
 

@@ -159,6 +159,7 @@ public class ExampleUnitTest {
         XLog.lg(o instanceof Boolean, "cast:", e);
 //        e = XType.cast(null);
 //        XLog.lg("null value to boolean:", e);
+
     }
 
     @Test
@@ -309,5 +310,43 @@ public class ExampleUnitTest {
         }).end().then(d -> {
             XLog.lg(d);
         });
+    }
+
+    @Test
+    public void testPromiseThreadTask() {
+        Promise.taskS(() -> "ABC")
+                .task(d -> {
+                    XLog.ln(d, d.get(), d.getError());
+                    return "ABC";
+                }).task(d -> {
+            XLog.ln(d, d.get(), d.getError());
+            return "ABC";
+        }).task(d -> {
+            XLog.ln(d, d.get(), d.getError());
+            return "ABC";
+        }).task(d -> {
+            XLog.ln(d, d.get(), d.getError());
+            return "ABC";
+        }).task(d -> {
+            XLog.ln(d, d.get(), d.getError());
+            return "ABC";
+        }).then(d -> {
+            XLog.ln(d, d.get(), d.getError());
+//            return d;
+        })
+                .ln()
+        ;
+        Promise<Promise.AbstractPromiseTask<Promise.ReturnCallbackNoParam<String>, String, Object>> pro = Promise.taskS(() -> {
+            return "Start";
+        }).ln();
+        for (int i = 0; i < 100; i++) {
+            int j = i;
+//            pro.task(d->"start" + j).ln();
+            pro.task(d -> {
+                XLog.ln("running:", j);
+                return "start" + j;
+
+            }).ln();
+        }
     }
 }

@@ -21,12 +21,20 @@ public abstract class AbstractBaseActivity extends AppCompatActivity {
         to(new Intent(this, clazz));
     }
 
+    public <T extends AppCompatActivity> void to(Class<T> clazz, int requesCode) {
+        to(new Intent(this, clazz), requesCode);
+    }
+
     public void to(Intent intent) {
         startActivity(intent);
     }
 
     public void to(Intent intent, int requesCode) {
         startActivityForResult(intent, requesCode);
+    }
+
+    public <T extends AppCompatActivity> void clickTo(int id, Class<T> clazz, int requesCode) {
+        clickBind(id, vi -> to(clazz, requesCode));
     }
 
     public <T extends AppCompatActivity> void clickTo(int id, Class<T> clazz) {

@@ -1,32 +1,17 @@
 package com.xy.util;
 
-import android.Manifest;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.pm.PackageManager;
 import android.os.AsyncTask;
-import android.telephony.TelephonyManager;
 
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
-import com.xiuye.util.log.XLog;
-
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
-
-import io.reactivex.Observable;
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.disposables.Disposable;
-import io.reactivex.schedulers.Schedulers;
-import okhttp3.OkHttpClient;
-import okhttp3.logging.HttpLoggingInterceptor;
-import retrofit2.Retrofit;
-import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
-import retrofit2.converter.gson.GsonConverterFactory;
 
 
 public class UIUtil {
@@ -70,51 +55,6 @@ public class UIUtil {
         log(getCurrentActivty(), s);
     }
 
-    public static String getDeviceID(Activity activity) {
-        TelephonyManager mTelephonyMgr = (TelephonyManager) activity.getSystemService(Context.TELEPHONY_SERVICE);
-        int checkResult = activity.checkCallingOrSelfPermission(Manifest.permission.READ_PHONE_STATE);
-        if (checkResult == PackageManager.PERMISSION_GRANTED) {
-            String imsi = mTelephonyMgr.getSubscriberId(); //获取IMSI号
-            String imei = mTelephonyMgr.getDeviceId(); //获取IMEI号
-            return imsi + imei;
-        }
-        return null;
-    }
-
-//    public static boolean requestDevicePermission(Activity activity, String[] permissions, int requestCode) {
-//
-//        activity.requestPermissions(permissions,requestCode);
-//        return true;
-//    }
-
-
-    public static Retrofit retrofit(String baseUrl) {
-        HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
-        interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
-
-        OkHttpClient.Builder client = new OkHttpClient.Builder();
-        client.addInterceptor(interceptor);
-
-        Retrofit retrofit = new Retrofit.Builder()
-                .client(client.build())
-                .addConverterFactory(GsonConverterFactory.create())
-                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-                .baseUrl(baseUrl)
-                .build();
-        return retrofit;
-    }
-
-    public static Disposable handleRetrofitResult(Observable<Map<String, Object>> result,
-                                                  Consumer<Map<String, Object>> consumer) {
-        return result
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(d -> {
-                    XLog.log(d, Thread.currentThread());
-                    consumer.accept(d);
-                });
-
-    }
 
     public interface Consumer<T> {
         void accept(T t);

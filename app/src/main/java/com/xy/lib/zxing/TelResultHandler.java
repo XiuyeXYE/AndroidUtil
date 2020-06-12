@@ -18,9 +18,9 @@ package com.xy.lib.zxing;
 
 import android.app.Activity;
 
-import com.google.zxing.client.android.R;
 import com.google.zxing.client.result.ParsedResult;
 import com.google.zxing.client.result.TelParsedResult;
+import com.xy.activity.R;
 
 /**
  * Offers relevant actions for telephone numbers.

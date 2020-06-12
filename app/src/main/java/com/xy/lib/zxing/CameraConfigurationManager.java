@@ -27,7 +27,6 @@ import android.view.Surface;
 import android.view.WindowManager;
 
 import com.google.zxing.client.android.camera.CameraConfigurationUtils;
-import com.google.zxing.client.android.camera.open.CameraFacing;
 
 /**
  * A class which deals with reading, parsing, and setting the camera parameters which are used to

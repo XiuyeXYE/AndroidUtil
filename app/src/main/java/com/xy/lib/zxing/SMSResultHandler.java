@@ -18,9 +18,9 @@ package com.xy.lib.zxing;
 
 import android.app.Activity;
 
-import com.google.zxing.client.android.R;
 import com.google.zxing.client.result.ParsedResult;
 import com.google.zxing.client.result.SMSParsedResult;
+import com.xy.activity.R;
 
 /**
  * Handles SMS addresses, offering a choice of composing a new SMS or MMS message.

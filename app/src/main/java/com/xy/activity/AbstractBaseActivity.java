@@ -1,5 +1,6 @@
 package com.xy.activity;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -17,11 +18,11 @@ public abstract class AbstractBaseActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
     }
 
-    public <T extends AppCompatActivity> void to(Class<T> clazz) {
+    public <T extends Activity> void to(Class<T> clazz) {
         to(new Intent(this, clazz));
     }
 
-    public <T extends AppCompatActivity> void to(Class<T> clazz, int requesCode) {
+    public <T extends Activity> void to(Class<T> clazz, int requesCode) {
         to(new Intent(this, clazz), requesCode);
     }
 
@@ -33,11 +34,11 @@ public abstract class AbstractBaseActivity extends AppCompatActivity {
         startActivityForResult(intent, requesCode);
     }
 
-    public <T extends AppCompatActivity> void clickTo(int id, Class<T> clazz, int requesCode) {
+    public <T extends Activity> void clickTo(int id, Class<T> clazz, int requesCode) {
         clickBind(id, vi -> to(clazz, requesCode));
     }
 
-    public <T extends AppCompatActivity> void clickTo(int id, Class<T> clazz) {
+    public <T extends Activity> void clickTo(int id, Class<T> clazz) {
 //        findViewById(id).setOnClickListener(v -> {
 //            to(clazz);
 //        });

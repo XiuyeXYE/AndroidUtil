@@ -30,7 +30,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.google.zxing.BarcodeFormat;
-import com.google.zxing.client.android.R;
+import com.xy.activity.R;
 
 /**
  * Barcode Scanner can share data like contacts and bookmarks by displaying a QR Code on screen,

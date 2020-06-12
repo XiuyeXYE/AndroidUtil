@@ -28,7 +28,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.ListAdapter;
 
-import com.google.zxing.client.android.R;
+import com.xy.activity.R;
 
 import java.util.ArrayList;
 import java.util.Collections;

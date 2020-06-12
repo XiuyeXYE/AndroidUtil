@@ -25,7 +25,7 @@ import android.util.AttributeSet;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.google.zxing.client.android.R;
+import com.xy.activity.R;
 
 import java.util.Locale;
 

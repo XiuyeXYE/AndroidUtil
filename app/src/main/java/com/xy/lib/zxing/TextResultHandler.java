@@ -19,8 +19,8 @@ package com.xy.lib.zxing;
 import android.app.Activity;
 
 import com.google.zxing.Result;
-import com.google.zxing.client.android.R;
 import com.google.zxing.client.result.ParsedResult;
+import com.xy.activity.R;
 
 /**
  * This class handles TextParsedResult as well as unknown formats. It's the fallback handler.

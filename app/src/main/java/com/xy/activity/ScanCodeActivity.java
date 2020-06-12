@@ -10,6 +10,7 @@ import androidx.annotation.Nullable;
 
 import com.xiuye.sharp.Promise;
 import com.xiuye.util.cls.XType;
+import com.xy.lib.zxing.CaptureActivity;
 import com.xy.network.TicketApi;
 import com.xy.util.UIUtil;
 
@@ -31,7 +32,7 @@ public class ScanCodeActivity extends AbstractBaseActivity {
         setContentView(R.layout.activity_scan_code);
 
 //        clickTo(R.id.scanGunText, CameraCaptureActivity.class, 1);
-//        clickTo(R.id.scanGunText, Capture, 1);
+        clickTo(R.id.scanGunText, CaptureActivity.class, 1);
 
         dialog = new AlertDialog.Builder(this);
 

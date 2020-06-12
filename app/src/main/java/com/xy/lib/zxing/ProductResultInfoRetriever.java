@@ -20,7 +20,7 @@ import android.content.Context;
 import android.text.Html;
 import android.widget.TextView;
 
-import com.google.zxing.client.android.R;
+import com.xy.activity.R;
 
 import java.io.IOException;
 import java.net.URLEncoder;

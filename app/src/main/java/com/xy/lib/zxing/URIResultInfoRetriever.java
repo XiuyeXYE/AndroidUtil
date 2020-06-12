@@ -19,8 +19,8 @@ package com.xy.lib.zxing;
 import android.content.Context;
 import android.widget.TextView;
 
-import com.google.zxing.client.android.R;
 import com.google.zxing.client.result.URIParsedResult;
+import com.xy.activity.R;
 
 import java.io.IOException;
 import java.net.URI;

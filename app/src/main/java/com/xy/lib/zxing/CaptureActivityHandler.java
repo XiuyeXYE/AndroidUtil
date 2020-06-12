@@ -33,6 +33,7 @@ import android.util.Log;
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.DecodeHintType;
 import com.google.zxing.Result;
+import com.xy.activity.R;
 
 import java.util.Collection;
 import java.util.Map;

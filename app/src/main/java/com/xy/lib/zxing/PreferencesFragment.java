@@ -25,6 +25,8 @@ import android.preference.Preference;
 import android.preference.PreferenceFragment;
 import android.preference.PreferenceScreen;
 
+import com.xy.activity.R;
+
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.ArrayList;

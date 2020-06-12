@@ -29,10 +29,10 @@ import android.telephony.PhoneNumberUtils;
 import android.util.Log;
 
 import com.google.zxing.Result;
-import com.google.zxing.client.android.R;
 import com.google.zxing.client.result.ParsedResult;
 import com.google.zxing.client.result.ParsedResultType;
 import com.google.zxing.client.result.ResultParser;
+import com.xy.activity.R;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;

@@ -30,7 +30,8 @@ public class ScanCodeActivity extends AbstractBaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_scan_code);
 
-        clickTo(R.id.scanGunText, CameraCaptureActivity.class, 1);
+//        clickTo(R.id.scanGunText, CameraCaptureActivity.class, 1);
+//        clickTo(R.id.scanGunText, Capture, 1);
 
         dialog = new AlertDialog.Builder(this);
 

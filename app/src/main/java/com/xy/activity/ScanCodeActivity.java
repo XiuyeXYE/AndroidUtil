@@ -8,7 +8,7 @@ import android.view.WindowManager;
 
 import androidx.annotation.Nullable;
 
-import com.xiuye.sharp.Promise;
+import com.xiuye.sharp.X;
 import com.xiuye.util.cls.XType;
 import com.xy.lib.zxing.CaptureActivity;
 import com.xy.network.TicketApi;
@@ -42,14 +42,14 @@ public class ScanCodeActivity extends AbstractBaseActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        Promise.beginS()
-                .ef(resultCode == RESULT_OK)
-                .then(() -> {
-                    Promise.beginS()
-                            .match(requestCode)
-                            .as(1)
-                            .then(() -> {
-                                Promise.resolve(data).exist(d -> {
+        X.beginS()
+                .IF(resultCode == RESULT_OK)
+                .THEN(() -> {
+                    X.beginS()
+                            .MATCH(requestCode)
+                            .AS(1)
+                            .THEN(() -> {
+                                X.resolve(data).E(d -> {
                                     String content = d.getStringExtra("codedContent");
                                     UIUtil.log(this, "扫描结果为：", content);
                                     requestTicket(content);

@@ -2,7 +2,7 @@ package com.xy.network;
 
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
-import com.xiuye.sharp.Promise;
+import com.xiuye.sharp.X;
 import com.xy.bean.BaseBean;
 import com.xy.util.DataUtil;
 import com.xy.util.UIUtil;
@@ -23,11 +23,11 @@ public class TicketApi {
     SwipeRefreshLayout swipeRefreshLayout;
 
     public void request() {
-        Promise.of(DataUtil.createRxInterface("http://dnjy.jinou.biz/", ScanGunCodeInterface.class))
-                .exist(sci -> {
+        X.of(DataUtil.createRxInterface("http://dnjy.jinou.biz/", ScanGunCodeInterface.class))
+                .E(sci -> {
                     return DataUtil.resultWrapIO(sci.ticket(pathMap));
                 })
-                .exist(d -> {
+                .E(d -> {
                     d.subscribe(data -> {
                         if (swipeRefreshLayout != null)
                             swipeRefreshLayout.setRefreshing(false);

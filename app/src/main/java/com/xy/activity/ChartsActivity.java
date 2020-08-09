@@ -16,7 +16,7 @@ public class ChartsActivity extends AbstractBaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_charts);
-        this.<LineChart>byId(R.id.lineChart).then(chart -> {
+        this.<LineChart>byId(R.id.lineChart).THEN(chart -> {
             //x axis,y axis
             List<Entry> data = XType.list();
             data.add(new Entry(0, 7));

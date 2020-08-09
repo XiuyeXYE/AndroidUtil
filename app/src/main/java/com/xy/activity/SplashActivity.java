@@ -13,9 +13,9 @@ import androidx.annotation.NonNull;
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 
+import com.xiuye.util.cls.XClassLoader;
 import com.xiuye.util.cls.XType;
-import com.xiuye.util.cls.XYClassLoader;
-import com.xiuye.util.code.XYCompiler;
+import com.xiuye.util.code.XCompiler;
 import com.xy.activity.ui.login.LoginActivity;
 import com.xy.itf.ADemo;
 import com.xy.service.HelloIntentService;
@@ -154,9 +154,9 @@ public class SplashActivity extends AbstractBaseActivity {
                             "}";
             Map<String, String> codes = XType.map();
             codes.put("com.xy.itf.impl.ADemoImpl", aDemoCode);
-            UIUtil.log(XYCompiler.compileCode(codes) ? "Compile successful!" : "Compile failed!");
+            UIUtil.log(XCompiler.compileCode(codes) ? "Compile successful!" : "Compile failed!");
             try {
-                XYClassLoader cl = XType.createClassLoader();
+                XClassLoader cl = XType.createClassLoader();
                 Class<ADemo> clazz = cl.load("com.xy.itf.impl.ADemoImpl");
                 ADemo ad = clazz.newInstance();
                 UIUtil.log("ADemo says:", ad.says());

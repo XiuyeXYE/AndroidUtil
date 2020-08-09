@@ -11,7 +11,7 @@ import android.widget.ImageView;
 
 import androidx.core.content.FileProvider;
 
-import com.xiuye.sharp.Promise;
+import com.xiuye.sharp.X;
 import com.xiuye.util.cls.XType;
 import com.xy.util.UIUtil;
 
@@ -29,7 +29,7 @@ public class CameraActivity extends AbstractBaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_camera);
 
-        this.<ImageView>byId(R.id.photoImageView).exist(v -> {
+        this.<ImageView>byId(R.id.photoImageView).E(v -> {
             photoImageView = v;
         });
 
@@ -43,15 +43,15 @@ public class CameraActivity extends AbstractBaseActivity {
     static final int REQUEST_TAKE_PHOTO = 2;
 
     private void dispatchTakePictureIntent() {
-        Promise.resolve(new Intent(MediaStore.ACTION_IMAGE_CAPTURE))
-                .then(intent -> {
-                    Promise.resolve(intent.resolveActivity(getPackageManager()))
-                            .exist(() -> {
+        X.resolve(new Intent(MediaStore.ACTION_IMAGE_CAPTURE))
+                .THEN(intent -> {
+                    X.resolve(intent.resolveActivity(getPackageManager()))
+                            .E(() -> {
                                 to(intent, REQUEST_IMAGE_CAPTURE);
-                            }).except(e -> {
+                            }).EX(e -> {
                         UIUtil.log(this, "exception:", e);
                     });
-                }).except(e -> {
+                }).EX(e -> {
             UIUtil.log(this, "exception:", e);
         });
 
@@ -59,12 +59,12 @@ public class CameraActivity extends AbstractBaseActivity {
     }
 
     private void dispatchTakePictureIntent2() {
-        Promise.resolve(new Intent(MediaStore.ACTION_IMAGE_CAPTURE))
-                .then(intent -> {
-                    Promise.resolve(intent.resolveActivity(getPackageManager()))
-                            .exist(() -> {
+        X.resolve(new Intent(MediaStore.ACTION_IMAGE_CAPTURE))
+                .THEN(intent -> {
+                    X.resolve(intent.resolveActivity(getPackageManager()))
+                            .E(() -> {
                                 return createImageFile();
-                            }).exist(photoFile -> {
+                            }).E(photoFile -> {
                         Uri photoURI = FileProvider.getUriForFile(
                                 this,
                                 "com.xy.fileprovider"
@@ -72,7 +72,7 @@ public class CameraActivity extends AbstractBaseActivity {
                         intent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
 
                         to(intent, REQUEST_TAKE_PHOTO);
-                    }).except(e -> {//有error就执行，没有就跳过！
+                    }).EX(e -> {//有error就执行，没有就跳过！
                         UIUtil.log(this, "Exception:", e);
                     });
                 });
@@ -91,23 +91,23 @@ public class CameraActivity extends AbstractBaseActivity {
 //        }
 //        UIUtil.log(this,currentPhotoPath);
 
-        Promise.beginS().match(resultCode).as(RESULT_OK).then(() -> {
-            Promise.beginS().match(requestCode)
-                    .as(REQUEST_IMAGE_CAPTURE)
-                    .then(() -> {
+        X.beginS().MATCH(resultCode).AS(RESULT_OK).THEN(() -> {
+            X.beginS().MATCH(requestCode)
+                    .AS(REQUEST_IMAGE_CAPTURE)
+                    .THEN(() -> {
                         Bundle extras = data.getExtras();
                         Bitmap imageBitmap = XType.cast(extras.get("data"));
                         photoImageView.setImageBitmap(imageBitmap);
                     })
-                    .as(REQUEST_TAKE_PHOTO)
-                    .then(() -> {
-                        Promise.resolve(currentPhotoPath).exist(d -> {
+                    .AS(REQUEST_TAKE_PHOTO)
+                    .THEN(() -> {
+                        X.resolve(currentPhotoPath).E(d -> {
                             return BitmapFactory.decodeFile(d);
-                        }).except(e -> {
+                        }).EX(e -> {
                             UIUtil.log(this, e);
-                        }).exist(bitmap -> {
+                        }).E(bitmap -> {
                             photoImageView.setImageBitmap(bitmap);
-                        }).except(e -> {
+                        }).EX(e -> {
                             UIUtil.log(this, e);
                         });
                     }).end();

@@ -4,7 +4,7 @@ import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.xiuye.sharp.Promise;
+import com.xiuye.sharp.X;
 import com.xy.util.UIUtil;
 
 public class DialogActivity extends AppCompatActivity {
@@ -16,9 +16,9 @@ public class DialogActivity extends AppCompatActivity {
 //        new Promise<>(getActionBar()).exist(bar->{
 //            bar.hide();
 //        });
-        Promise.resolve(getActionBar()).exist(bar -> {
+        X.resolve(getActionBar()).E(bar -> {
             bar.hide();
-        }).lastly(() -> {
+        }).FINALLY(() -> {
             UIUtil.log(this, "lastly inner impl from then");
         });
 

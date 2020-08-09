@@ -16,7 +16,7 @@ public class TransitionDrawableActivity extends AbstractBaseActivity {
         setContentView(R.layout.activity_transition_drawable);
         TransitionDrawable transition = XType.cast(ResourcesCompat.getDrawable(getResources(), R.drawable.expand_collapse, null));
 
-        this.<ImageView>byId(R.id.transitionDrawableImageView).then((image) -> {
+        this.<ImageView>byId(R.id.transitionDrawableImageView).THEN((image) -> {
             image.setImageDrawable(transition);
             image.setContentDescription("Desc transition");
             // Then you can call the TransitionDrawable object's methods.

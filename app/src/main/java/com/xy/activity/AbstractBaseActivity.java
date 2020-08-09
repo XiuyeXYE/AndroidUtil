@@ -7,7 +7,7 @@ import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.xiuye.sharp.Promise;
+import com.xiuye.sharp.X;
 import com.xiuye.util.cls.XType;
 
 public abstract class AbstractBaseActivity extends AppCompatActivity {
@@ -50,21 +50,21 @@ public abstract class AbstractBaseActivity extends AppCompatActivity {
     }
 
     public void clickBind(int id) {
-        Promise.resolve(this instanceof View.OnClickListener)
-                .truely(b -> {
+        X.resolve(this instanceof View.OnClickListener)
+                .T(b -> {
                     clickBind(id, XType.cast(this));
                 });
     }
 
     public void clickBind(int id, View.OnClickListener clicker) {
-        byId(id).exist(view -> {
+        byId(id).E(view -> {
                     view.setOnClickListener(clicker);
                 }
         );
     }
 
-    public <R extends View> Promise<R> byId(int id) {
-//        return new Promise<>(() -> {
+    public <R extends View> X<R> byId(int id) {
+//        return new X<>(() -> {
 //            return findViewById(id);
 //        });
         //这个findViewById不能默认调用 resolve(r)反正是
@@ -75,7 +75,7 @@ public abstract class AbstractBaseActivity extends AppCompatActivity {
         // 出现一些莫名其妙的问题！
         // 解决办法就是分步变量传入！
 //        R r = findViewById(id);
-        return Promise.resolve(findViewById(id));
+        return X.of(findViewById(id));
     }
 
 

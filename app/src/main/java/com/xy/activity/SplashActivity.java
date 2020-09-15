@@ -270,6 +270,9 @@ public class SplashActivity extends AbstractBaseActivity {
 
         clickTo(R.id.toScanCodeActivityBtn, ScanCodeActivity.class);
 
+        clickTo(R.id.toPullToRefreshViewActivityBtn, PullToRefreshViewActivity.class);
+
+
     }
 
 

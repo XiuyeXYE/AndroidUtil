@@ -338,6 +338,13 @@
                 android:layout_height="wrap_content"
                 android:text="toScanCodeActivity" />
 
+            <Button
+                android:id="@+id/toPullToRefreshViewActivityBtn"
+                android:textAllCaps="false"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="toPullToRefreshViewActivity" />
+
         </LinearLayout>
     </ScrollView>
 

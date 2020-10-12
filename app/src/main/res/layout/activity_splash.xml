@@ -345,6 +345,14 @@
                 android:layout_height="wrap_content"
                 android:text="toPullToRefreshViewActivity" />
 
+
+            <Button
+                android:id="@+id/toIPActivityBtn"
+                android:textAllCaps="false"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="toIPActivity" />
+
         </LinearLayout>
     </ScrollView>
 

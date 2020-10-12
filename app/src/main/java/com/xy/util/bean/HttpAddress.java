@@ -6,4 +6,5 @@ package com.xy.util.bean;
 
 public class HttpAddress {
     public static String baseUrl = "http://dnjy.jinou.biz/";
+    public static String SEARCH_IP_URL = "https://www.ip.cn/";
 }

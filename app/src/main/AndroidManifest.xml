@@ -49,7 +49,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".PullToRefreshViewActivity"></activity>
+        <activity android:name=".IPActivity"></activity>
+        <activity android:name=".PullToRefreshViewActivity" />
         <activity android:name=".CameraCaptureActivity" />
         <activity android:name=".ScanCodeActivity" />
         <activity android:name=".CameraActivity" />

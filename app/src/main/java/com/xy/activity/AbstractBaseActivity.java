@@ -53,12 +53,15 @@ public abstract class AbstractBaseActivity extends AppCompatActivity {
         X.resolve(this instanceof View.OnClickListener)
                 .T(b -> {
                     clickBind(id, XType.cast(this));
+                    return X.DEFAULT_BOOLEAN;
                 });
+
     }
 
     public void clickBind(int id, View.OnClickListener clicker) {
         byId(id).E(view -> {
                     view.setOnClickListener(clicker);
+            return X.DEFAULT_OBJECT;
                 }
         );
     }

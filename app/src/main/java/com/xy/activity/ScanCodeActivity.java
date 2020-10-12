@@ -42,10 +42,10 @@ public class ScanCodeActivity extends AbstractBaseActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        X.beginS()
+        X.begin()
                 .IF(resultCode == RESULT_OK)
                 .THEN(() -> {
-                    X.beginS()
+                    X.begin()
                             .MATCH(requestCode)
                             .AS(1)
                             .THEN(() -> {
@@ -53,7 +53,9 @@ public class ScanCodeActivity extends AbstractBaseActivity {
                                     String content = d.getStringExtra("codedContent");
                                     UIUtil.log(this, "扫描结果为：", content);
                                     requestTicket(content);
+                                    return X.DEFAULT_OBJECT;
                                 });
+
                             })
                             .end();
                 })

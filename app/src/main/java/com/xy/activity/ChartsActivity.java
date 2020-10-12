@@ -6,6 +6,7 @@ import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
+import com.xiuye.sharp.X;
 import com.xiuye.util.cls.XType;
 
 import java.util.List;
@@ -29,6 +30,8 @@ public class ChartsActivity extends AbstractBaseActivity {
 //            lineData.addDataSet(lineDataSet);
 
             chart.setData(lineData);
+
+            return X.DEFAULT_OBJECT;
 
         });
     }

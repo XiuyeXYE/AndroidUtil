@@ -13,7 +13,6 @@ import androidx.core.content.FileProvider;
 
 import com.xiuye.sharp.X;
 import com.xiuye.util.cls.XType;
-import com.xy.util.UIUtil;
 
 import java.io.File;
 import java.io.IOException;
@@ -31,6 +30,7 @@ public class CameraActivity extends AbstractBaseActivity {
 
         this.<ImageView>byId(R.id.photoImageView).E(v -> {
             photoImageView = v;
+            return X.DEFAULT_OBJECT;
         });
 
         clickBind(R.id.takePhotoBtn2, v -> dispatchTakePictureIntent());
@@ -48,12 +48,9 @@ public class CameraActivity extends AbstractBaseActivity {
                     X.resolve(intent.resolveActivity(getPackageManager()))
                             .E(() -> {
                                 to(intent, REQUEST_IMAGE_CAPTURE);
-                            }).EX(e -> {
-                        UIUtil.log(this, "exception:", e);
-                    });
-                }).EX(e -> {
-            UIUtil.log(this, "exception:", e);
-        });
+                            });
+                    return X.DEFAULT_OBJECT;
+                });
 
 
     }
@@ -62,7 +59,7 @@ public class CameraActivity extends AbstractBaseActivity {
         X.resolve(new Intent(MediaStore.ACTION_IMAGE_CAPTURE))
                 .THEN(intent -> {
                     X.resolve(intent.resolveActivity(getPackageManager()))
-                            .E(() -> {
+                            .E(d -> {
                                 return createImageFile();
                             }).E(photoFile -> {
                         Uri photoURI = FileProvider.getUriForFile(
@@ -72,9 +69,9 @@ public class CameraActivity extends AbstractBaseActivity {
                         intent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
 
                         to(intent, REQUEST_TAKE_PHOTO);
-                    }).EX(e -> {//有error就执行，没有就跳过！
-                        UIUtil.log(this, "Exception:", e);
+                        return X.DEFAULT_OBJECT;
                     });
+                    return X.DEFAULT_OBJECT;
                 });
     }
 
@@ -91,8 +88,8 @@ public class CameraActivity extends AbstractBaseActivity {
 //        }
 //        UIUtil.log(this,currentPhotoPath);
 
-        X.beginS().MATCH(resultCode).AS(RESULT_OK).THEN(() -> {
-            X.beginS().MATCH(requestCode)
+        X.begin().MATCH(resultCode).AS(RESULT_OK).THEN(() -> {
+            X.begin().MATCH(requestCode)
                     .AS(REQUEST_IMAGE_CAPTURE)
                     .THEN(() -> {
                         Bundle extras = data.getExtras();
@@ -103,12 +100,9 @@ public class CameraActivity extends AbstractBaseActivity {
                     .THEN(() -> {
                         X.resolve(currentPhotoPath).E(d -> {
                             return BitmapFactory.decodeFile(d);
-                        }).EX(e -> {
-                            UIUtil.log(this, e);
                         }).E(bitmap -> {
                             photoImageView.setImageBitmap(bitmap);
-                        }).EX(e -> {
-                            UIUtil.log(this, e);
+                            return X.DEFAULT_OBJECT;
                         });
                     }).end();
         }).end();

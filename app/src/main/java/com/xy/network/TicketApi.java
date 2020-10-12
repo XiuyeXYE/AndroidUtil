@@ -40,6 +40,7 @@ public class TicketApi {
                             UIUtil.log(getClass().getName(), "accept: ", throwable);
                         }
                     });
+                    return X.DEFAULT_OBJECT;
                 });
 
     }

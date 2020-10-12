@@ -2,6 +2,7 @@ package com.xy.activity;
 
 import android.os.Bundle;
 
+import com.xiuye.sharp.X;
 import com.yalantis.phoenix.PullToRefreshView;
 
 public class PullToRefreshViewActivity extends AbstractBaseActivity {
@@ -16,7 +17,9 @@ public class PullToRefreshViewActivity extends AbstractBaseActivity {
                 d.postDelayed(() -> {
                     d.setRefreshing(false);
                 }, 1000);
+
             });
+            return X.DEFAULT_OBJECT;
         });
 
     }

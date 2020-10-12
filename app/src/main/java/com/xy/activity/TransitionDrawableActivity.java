@@ -6,6 +6,7 @@ import android.widget.ImageView;
 
 import androidx.core.content.res.ResourcesCompat;
 
+import com.xiuye.sharp.X;
 import com.xiuye.util.cls.XType;
 
 public class TransitionDrawableActivity extends AbstractBaseActivity {
@@ -21,6 +22,7 @@ public class TransitionDrawableActivity extends AbstractBaseActivity {
             image.setContentDescription("Desc transition");
             // Then you can call the TransitionDrawable object's methods.
             transition.startTransition(5000);
+            return X.DEFAULT_OBJECT;
         });
 
 
